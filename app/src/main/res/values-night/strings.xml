@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">login, signup or continue as a guest</string>
+    <string name="guest">Continue as a guest</string>
+    <string name="password">Password</string>
+</resources>
