@@ -24,7 +24,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="@string/login"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -34,31 +34,33 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/passLayout"
         android:layout_width="322dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="password"
-        android:inputType="textPassword"
         app:endIconMode="password_toggle"
         app:boxCornerRadiusBottomEnd="17dp"
         app:boxCornerRadiusBottomStart="17dp"
         app:boxCornerRadiusTopEnd="17dp"
         app:boxCornerRadiusTopStart="17dp"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/red"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/mailLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginpass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/mailLayout"
 
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="322dp"
@@ -68,13 +70,14 @@
         app:boxCornerRadiusBottomStart="17dp"
         app:boxCornerRadiusTopEnd="17dp"
         app:boxCornerRadiusTopStart="17dp"
-
+        app:errorEnabled="true"
+        app:errorTextColor="@color/red"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email_tv"
+            android:id="@+id/mailV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="mail" />
@@ -89,10 +92,13 @@
         android:layout_marginEnd="56dp"
         android:text="@string/signupbtn"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guest_tv"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
 
-        />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/passLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -103,7 +109,7 @@
         android:text="@string/loginbtn"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/passLayout" />
 
     <TextView
         android:id="@+id/guest_tv"
@@ -114,10 +120,34 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/sign_in_button"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintVertical_bias="0.543" />
+
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="login with google"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.0" />
 
+        <!--    <com.google.android.gms.common.SignInButton-->
+<!--        android:id="@+id/sign_in_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="36dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageView"-->
+<!--        app:layout_constraintHorizontal_bias="0.144"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/imageView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/loginBtn"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
