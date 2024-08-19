@@ -1,8 +1,7 @@
-package com.example.mealplannerapplication.view;
+package com.example.mealplannerapplication.view.activity1;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
+import static android.content.ContentValues.TAG;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,26 +20,33 @@ import android.widget.Toast;
 
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.presenter.loginPresenter;
+import com.example.mealplannerapplication.view.activity2;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginFragment extends Fragment implements loginInterface {
 
-loginPresenter presenter;
-Button loginButton, signUpButton, googlesigninbtn;
-TextView email, password;
+    loginPresenter presenter;
+    Button loginButton, signUpButton, googlesigninbtn;
+    TextView email, password;
     private    GoogleSignInOptions   gso;
     private GoogleSignInClient signInClient;
     private static final int RC_SIGN_IN = 9001;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,7 @@ TextView email, password;
                 .requestEmail()
                 .build();
         signInClient = GoogleSignIn.getClient( getActivity(), gso);
-
+        mAuth = FirebaseAuth.getInstance();
         super.onViewCreated(view, savedInstanceState);
         signUpButton = view.findViewById(R.id.signupBtn);
         loginButton = view.findViewById(R.id.loginBtn);
@@ -80,7 +87,7 @@ TextView email, password;
             public void onClick(View v) {
                 boolean isVaild = checkValidation();
                 if((isVaild)){
-                   presenter.login(email.getText().toString(), password.getText().toString());
+                    presenter.login(email.getText().toString(), password.getText().toString());
                 }
 
             }
@@ -90,7 +97,7 @@ TextView email, password;
             @Override
             public void onClick(View v) {
                 Intent signInIntent = signInClient.getSignInIntent();
-             startActivityForResult(signInIntent, RC_SIGN_IN);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
                 //presenter.signInWithGoogle( );
 
             }
@@ -99,9 +106,9 @@ TextView email, password;
 
     @Override
     public void loginSuccess() {
-Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
-Intent intent = new Intent(getActivity(), activity2.class);
-startActivity(intent);
+        Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), activity2.class);
+        startActivity(intent);
     }
 
     @Override
@@ -149,9 +156,25 @@ startActivity(intent);
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
+                     String name =   mAuth.getCurrentUser().getDisplayName();
+                        Map<String, Object> user = new HashMap<>();
+                        FirebaseFirestore  db = FirebaseFirestore.getInstance();
+                        user.put("name", name);
+                        String id = mAuth.getCurrentUser().getUid();
+                        db.collection("users").document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + id);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
                         loginSuccess();
                         requireActivity().finish(); // Finish the current activity if needed
                     } else {

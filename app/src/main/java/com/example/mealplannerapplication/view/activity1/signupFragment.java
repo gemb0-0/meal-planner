@@ -1,4 +1,4 @@
-package com.example.mealplannerapplication.view;
+package com.example.mealplannerapplication.view.activity1;
 
 import android.os.Bundle;
 
@@ -55,7 +55,7 @@ public class signupFragment extends Fragment implements signupInterface {
         email = view.findViewById(R.id.mailV);
         password = view.findViewById(R.id.passwordsignup);
         confirmPassword = view.findViewById(R.id.confirmpasswordsignup);
-        name = view.findViewById(R.id.nameV);
+        name = view.findViewById(R.id.nameVV);
 
 
         signupButton.setOnClickListener(new View.OnClickListener() {

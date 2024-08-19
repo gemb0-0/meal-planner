@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainapp"
+    app:startDestination="@id/mealoftheday">
+
+    <fragment
+        android:id="@+id/favourite"
+        android:name="com.example.mealplannerapplication.view.favourite"
+        tools:layout="@layout/fragment_favourite" />
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.mealplannerapplication.view.profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.mealplannerapplication.view.search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/mealoftheday"
+        android:name="com.example.mealplannerapplication.view.MealOfTheDay"
+        tools:layout="@layout/fragment_mealoftheday" >
+
+        <action
+            android:id="@+id/action_mealoftheday_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailView"
+        android:name="com.example.mealplannerapplication.view.mealDetailView"
+        android:label="fragment_meal_detail_view"
+        tools:layout="@layout/fragment_meal_detail_view" >
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+</navigation>

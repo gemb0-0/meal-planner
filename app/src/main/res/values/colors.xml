@@ -10,11 +10,11 @@
     <color name="red">#FF0000</color>
 
 
-    <color name="primary_dark">#87AAAA</color>
-    <color name="secondary_dark">#F6D7A7</color>
-    <color name="primary_varient_dark">#C8E3D4</color>
-    <color name="secondary_varient_dark">#F6EABE</color>
-    <color name="backgroun_dark">#4B88A2</color>
+    <color name="primary_dark">#FF7F67</color>
+    <color name="secondary_dark">#6FBF7B</color>
+    <color name="primary_varient_dark">#3A687A</color>
+    <color name="secondary_varient_dark">#A2B599</color>
+    <color name="backgroun_dark">#2B2B2B </color>
 
 
 

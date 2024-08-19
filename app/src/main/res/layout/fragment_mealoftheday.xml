@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".view.MealOfTheDay">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="345dp"
+                android:layout_height="wrap_content"
+                android:text="@string/meal"
+                android:textAlignment="center"
+                android:textColor="@color/primary_varient"
+                android:textSize="45sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mealV"
+                android:layout_width="380dp"
+                android:layout_height="440dp"
+                android:layout_gravity="center">
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgV"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@color/background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:shapeAppearanceOverlay="@style/roundedImageView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/rounded_background"
+                    app:boxStrokeWidth="0dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/imgV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtV2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textNoSuggestions"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:padding="15dp"
+                        android:text="Bottom Text"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:text="This week's plan"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S"
+                    app:chipSpacingHorizontal="10dp"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mealsOftheDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:padding="7dp"
+                    android:text="@string/breakfast"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgBreakfast"
+                    android:layout_width="125dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@color/background"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView4"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="55dp"
+                    android:padding="7dp"
+                    android:text="@string/launch"
+                    app:layout_constraintStart_toEndOf="@id/textView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgLunch"
+                    android:layout_width="125dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@color/background"
+                    app:layout_constraintStart_toEndOf="@id/imgBreakfast"
+                    app:layout_constraintTop_toBottomOf="@id/textView5"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="55dp"
+                    android:padding="7dp"
+                    android:text="@string/dinner"
+                    app:layout_constraintStart_toEndOf="@id/textView5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgDinner"
+                    android:layout_width="125dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@color/background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgLunch"
+                    app:layout_constraintTop_toBottomOf="@id/textView6"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginFragment" >
+    tools:context=".view.activity1.LoginFragment" >
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView"
-        android:layout_width="362dp"
+        android:id="@+id/imgV"
+        android:layout_width="380dp"
         android:layout_height="507dp"
         android:src="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,9 +16,7 @@
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
-
-        />
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
         android:id="@+id/textView"
@@ -28,9 +26,9 @@
         android:text="@string/login"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
+        app:layout_constraintTop_toTopOf="@+id/imgV" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -47,9 +45,9 @@
         app:boxCornerRadiusTopStart="17dp"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
         app:layout_constraintHorizontal_bias="0.575"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/mailLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,8 +70,8 @@
         app:boxCornerRadiusTopStart="17dp"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,7 +91,7 @@
         android:text="@string/signupbtn"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guest_tv"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
 
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/loginBtn"
@@ -108,7 +106,7 @@
         android:layout_marginTop="36dp"
         android:text="@string/loginbtn"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/passLayout" />
 
     <TextView
@@ -118,8 +116,8 @@
         android:layout_marginBottom="20dp"
         android:text="@string/guest"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgV"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/sign_in_button"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
@@ -131,10 +129,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="login with google"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgV"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
         app:layout_constraintHorizontal_bias="0.144"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
         app:layout_constraintVertical_bias="0.0" />
 

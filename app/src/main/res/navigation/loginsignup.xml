@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.mealplannerapplication.view.signupFragment"
+        android:name="com.example.mealplannerapplication.view.activity1.signupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/signup_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.mealplannerapplication.view.LoginFragment"
+        android:name="com.example.mealplannerapplication.view.activity1.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/login_fragment" >
         <action

@@ -11,4 +11,7 @@
     </style>
 
     <style name="Theme.MealPlannerApplication" parent="Base.Theme.MealPlannerApplication" />
+
+
+
 </resources>

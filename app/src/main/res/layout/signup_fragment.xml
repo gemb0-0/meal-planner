@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView"
-        android:layout_width="362dp"
+        android:id="@+id/imgV"
+        android:layout_width="380dp"
         android:layout_height="550dp"
         android:src="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,9 +24,9 @@
         android:text="@string/signupbtn"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
+        app:layout_constraintTop_toTopOf="@+id/imgV" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passLayout"
@@ -42,8 +42,8 @@
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/mailLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,8 +65,8 @@
         app:boxCornerRadiusTopStart="17dp"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/nameLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,10 +85,10 @@
         android:layout_marginBottom="10dp"
         android:text="@string/signupbtn"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imgV"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/confirmpasswordLayout"
         app:layout_constraintVertical_bias="0.395" />
 
@@ -104,12 +104,12 @@
         app:boxCornerRadiusTopStart="17dp"
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameV"
+            android:id="@+id/nameVV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name" />
@@ -129,8 +129,8 @@
         app:errorEnabled="true"
         app:errorTextColor="@color/red"
         android:hint="@string/confirmpassword"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/passLayout">
 
         <com.google.android.material.textfield.TextInputEditText

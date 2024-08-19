@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    id ("androidx.navigation.safeargs")
-    alias(libs.plugins.google.gms.google.services)
 
+    id("androidx.navigation.safeargs")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.play.services.base)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -79,4 +80,7 @@ dependencies {
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation ("com.google.android.gms:play-services-identity:18.1.0")
+
+
 }

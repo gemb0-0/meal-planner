@@ -1,23 +1,52 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.view.signupFragment;
-import com.example.mealplannerapplication.view.signupInterface;
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.example.mealplannerapplication.view.activity1.signupFragment;
+import com.example.mealplannerapplication.view.activity1.signupInterface;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class signupPresenter {
 signupInterface signupview;
 private FirebaseAuth mAuth;
+private FirebaseFirestore db;
+    Map<String, Object> user = new HashMap<>();
 
     public signupPresenter(signupFragment signupFragment) {
         this.signupview = signupFragment;
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
     }
 
     public void signup(String name, String email, String password, String confirmpassword) {
-        mAuth = FirebaseAuth.getInstance();
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    user.put("name", name);
                     signupview.signupSuccess();
+                    String id = mAuth.getCurrentUser().getUid();
+                    db.collection("users").document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + id);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
                 } else {
                     signupview.signupError();
                 }
@@ -25,18 +54,4 @@ private FirebaseAuth mAuth;
 
     }
 
-//           signupButton.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(task -> {
-//                if (task.isSuccessful()) {
-//                    Toast.makeText(getContext(), "User created", Toast.LENGTH_SHORT).show();
-//                    System.out.println("User created");
-//                } else {
-//                    Toast.makeText(getContext(), "User not created", Toast.LENGTH_SHORT).show();
-//                    System.out.println("User not created");
-//                }
-//            });
-//        }
-//    });
 }

@@ -1,8 +1,7 @@
-package com.example.mealplannerapplication.view;
+package com.example.mealplannerapplication.view.activity1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +33,7 @@ public class spalshScreen extends AppCompatActivity {
 //              }
 //        }, 3000);
 
-                        Intent i = new Intent(spalshScreen.this, mainMenu.class);
+                        Intent i = new Intent(spalshScreen.this, activity1Scr.class);
                 startActivity(i);
 
     }
