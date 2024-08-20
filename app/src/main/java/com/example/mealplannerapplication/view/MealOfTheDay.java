@@ -36,7 +36,7 @@ import java.util.List;
 
 
 public class MealOfTheDay extends Fragment implements MealOfTheDayInterface {
-    Repository repo;
+
     mealOfTheDayPresenter presenter;
     TextView title,id;
     ImageView mealImage;
@@ -67,8 +67,8 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        repo = Repository.getInstance();
-        presenter = new mealOfTheDayPresenter(this, repo);
+
+        presenter = new mealOfTheDayPresenter(this,   Repository.getInstance(getContext()));
         presenter.getMealOfTheDay();
         title = view.findViewById(R.id.txtV2);
         mealImage = view.findViewById(R.id.imgV);

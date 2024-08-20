@@ -1,5 +1,7 @@
 package com.example.mealplannerapplication.presenter;
 
+import android.content.Context;
+
 import com.example.mealplannerapplication.model.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.MealDetailCallback;
@@ -9,10 +11,10 @@ import java.util.List;
 
 public class mealDetailPresenter {
     mealDetailViewInterface view;
-    Repository repo = Repository.getInstance();
-
-    public mealDetailPresenter(mealDetailViewInterface m) {
+    Repository repo;
+    public mealDetailPresenter(mealDetailViewInterface m, Repository repo) {
         this.view = m;
+        this.repo = repo;
 
     }
 

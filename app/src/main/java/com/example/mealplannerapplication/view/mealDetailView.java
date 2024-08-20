@@ -24,13 +24,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.mealDetailPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class mealDetailView extends Fragment implements mealDetailViewInterface {
-mealDetailPresenter presenter= new mealDetailPresenter( this );
+
+mealDetailPresenter presenter= new mealDetailPresenter( this, Repository.getInstance(getContext()));
 ImageView mealImage;
 TextView mealName, mealArea, mealInstructions;
 RecyclerView mealIngredientsList;

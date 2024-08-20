@@ -1,9 +1,12 @@
 package com.example.mealplannerapplication.model;
 
 
+import android.content.Context;
+
 import androidx.room.Dao;
 
 import com.example.mealplannerapplication.model.db.DAO;
+import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
 
 import java.util.List;
 
@@ -16,13 +19,15 @@ public class Repository {
     private MealApi MealApi;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private DAO mealDao;
-    private Repository() {
+    private Repository(Context context) {
+
         MealApi = retrofit.getClient(BASE_URL).create(MealApi.class);
+        mealDao =  MealLocalDataSaurce.getInstance(context).mealDao();
     }
 
-    public static Repository getInstance() {
+    public static Repository getInstance(Context context) {
         if (repository == null) {
-            repository = new Repository();
+            repository = new Repository(context);
         }
         return repository;
     }
@@ -70,7 +75,8 @@ public class Repository {
         fetchMealDetail(mealId, new MealDetailCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
-             //   new Thread(() -> mealDao.insert(mealDetail)).start();
+                Meal m = mealDetail.get(0);
+                new Thread(() -> mealDao.insert(m)).start();
             }
 
             @Override

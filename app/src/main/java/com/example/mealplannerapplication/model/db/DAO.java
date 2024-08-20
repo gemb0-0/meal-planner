@@ -15,7 +15,7 @@
             List<Meal> getAllMeals();
 
             @Insert(onConflict = OnConflictStrategy.IGNORE)
-            void insert(List<Meal> mealDetail);
+            void insert(Meal mealDetail);
 
             @Delete
             void delete(Meal meal);
