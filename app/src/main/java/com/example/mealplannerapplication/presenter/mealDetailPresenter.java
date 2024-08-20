@@ -29,4 +29,8 @@ public class mealDetailPresenter {
             }
         });
     }
+
+    public void saveMeal(String mealId) {
+        repo.saveMeal(mealId);
+    }
 }

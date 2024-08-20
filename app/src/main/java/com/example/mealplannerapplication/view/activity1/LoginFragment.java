@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -57,7 +58,13 @@ public class LoginFragment extends Fragment implements loginInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), activity2.class);
+            startActivity(intent);
+        }
         return inflater.inflate(R.layout.login_fragment, container, false);
     }
 
@@ -68,7 +75,8 @@ public class LoginFragment extends Fragment implements loginInterface {
                 .requestEmail()
                 .build();
         signInClient = GoogleSignIn.getClient( getActivity(), gso);
-        mAuth = FirebaseAuth.getInstance();
+        //will be deleted when i bring back splash screen
+
         super.onViewCreated(view, savedInstanceState);
         signUpButton = view.findViewById(R.id.signupBtn);
         loginButton = view.findViewById(R.id.loginBtn);

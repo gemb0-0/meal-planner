@@ -1,5 +1,12 @@
 package com.example.mealplannerapplication.model;
 
+
+import androidx.room.Dao;
+
+import com.example.mealplannerapplication.model.db.DAO;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -8,7 +15,7 @@ public class Repository {
     private static Repository repository;
     private MealApi MealApi;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-
+    private DAO mealDao;
     private Repository() {
         MealApi = retrofit.getClient(BASE_URL).create(MealApi.class);
     }
@@ -55,6 +62,20 @@ public class Repository {
             @Override
             public void onFailure(Call<mealofthedayResponse> call, Throwable t) {
                 callback.onFailure(t);
+            }
+        });
+    }
+
+    public void saveMeal(String mealId) {
+        fetchMealDetail(mealId, new MealDetailCallback() {
+            @Override
+            public void onSuccess(List<Meal> mealDetail) {
+             //   new Thread(() -> mealDao.insert(mealDetail)).start();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
             }
         });
     }
