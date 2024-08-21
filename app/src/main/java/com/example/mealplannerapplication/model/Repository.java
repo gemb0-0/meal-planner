@@ -94,4 +94,15 @@ public class Repository {
     public void deleteFav(Meal meal) {
         new Thread(() -> mealDao.delete(meal)).start();
     }
+
+    public void getFromDb(String mealId, MealDetailCallback mealDetailCallback) {
+        new Thread(() -> {
+            List<Meal> mealDetail = mealDao.getMealDetail(mealId);
+            if (mealDetail.size() > 0) {
+                mealDetailCallback.onSuccess(mealDetail);
+            } else {
+                mealDetailCallback.onFailure(new Throwable("No data found"));
+            }
+        }).start();
+    }
 }

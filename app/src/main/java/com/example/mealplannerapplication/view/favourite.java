@@ -1,10 +1,13 @@
 package com.example.mealplannerapplication.view;
 
+import static android.provider.Settings.System.putString;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,9 +88,8 @@ public class favourite extends Fragment implements FavouriteInterface,deleteFav 
 
     @Override
     public void getMealDetail(String mealId) {
-
-       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId);
-        Navigation.findNavController(recyclerView).navigate(action);
+       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId,true );
+        Navigation.findNavController(getView()).navigate(action);
 
 
 

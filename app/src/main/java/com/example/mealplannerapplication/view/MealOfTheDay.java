@@ -111,7 +111,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface {
         mealV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MealOfTheDayDirections.ActionMealofthedayToMealDetailView action = MealOfTheDayDirections.actionMealofthedayToMealDetailView(mealId);
+                MealOfTheDayDirections.ActionMealofthedayToMealDetailView action = MealOfTheDayDirections.actionMealofthedayToMealDetailView(mealId,false);
                 Navigation.findNavController(v).navigate(action);
             }
         });

@@ -38,7 +38,10 @@
         tools:layout="@layout/fragment_meal_detail_view" >
 
         <argument
-            android:name="name"
+            android:name="meal_id"
             app:argType="string" />
+        <argument
+            android:name="Fromdatabase"
+            app:argType="boolean" />
     </fragment>
 </navigation>

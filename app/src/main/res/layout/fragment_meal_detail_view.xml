@@ -43,7 +43,7 @@
                 android:id="@+id/imgV"
                 android:layout_width="match_parent"
                 android:layout_height="345dp"
-                android:src="@color/background" />
+                android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
                 android:id="@+id/mealName"

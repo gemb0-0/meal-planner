@@ -41,7 +41,7 @@ RecyclerView mealIngredientsList;
     WebView webView;
 ScrollView scrollView;
 FloatingActionButton btn1,btn2,btn3;
-
+Boolean fromDatabase;
     public mealDetailView() {
         // Required empty public constructor
     }
@@ -62,8 +62,8 @@ FloatingActionButton btn1,btn2,btn3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         mealId = mealDetailViewArgs.fromBundle(getArguments()).getName();
-
+         mealId = mealDetailViewArgs.fromBundle(getArguments()).getMealId();
+        fromDatabase = mealDetailViewArgs.fromBundle(getArguments()).getFromdatabase();
 
         return inflater.inflate(R.layout.fragment_meal_detail_view, container, false);
     }
@@ -72,7 +72,12 @@ FloatingActionButton btn1,btn2,btn3;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        presenter.getMealDetail(mealId);
+        if(fromDatabase==false)
+            presenter.getMealDetail(mealId);
+        else
+        {
+            presenter.getFromDb(mealId);
+        }
         mealImage = view.findViewById(R.id.imgV);
         mealName = view.findViewById(R.id.mealName);
         mealArea = view.findViewById(R.id.originCountrytxtV);
@@ -90,13 +95,15 @@ FloatingActionButton btn1,btn2,btn3;
                 onScroll();
             }
         });
+
         btn1.setOnClickListener(view1 -> {
             btn1.animate().rotationBy(180).setDuration(200);
             ObjectAnimator.ofFloat(scrollView, "translationY", 0).setDuration(200).start();
 
             View fadedScr = view.findViewById(R.id.view);
-            if(btn2.getVisibility() == View.VISIBLE){
+            if(btn2.getVisibility() == View.VISIBLE||fromDatabase==true){
                 hideBtns(fadedScr);
+
             }
             else {
                 showBtns(fadedScr);
@@ -120,6 +127,8 @@ FloatingActionButton btn1,btn2,btn3;
             @Override
             public void onClick(View view) {
                 presenter.saveMeal(mealId);
+                Toast.makeText(getContext(), "Meal Saved", Toast.LENGTH_SHORT).show();
+                hideBtns(fadedScr);
             }
         });
 
@@ -148,7 +157,11 @@ FloatingActionButton btn1,btn2,btn3;
         if (scrollView.getScrollY() == 0) {
             btn1.animate().setDuration(250).translationY(0);
             btn1.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else if (fromDatabase==true){
+            btn1.setVisibility(View.GONE);
+        }
+        else {
            btn1.animate().setDuration(200).translationY(500);
             btn1.setVisibility(View.GONE);
 
@@ -160,28 +173,33 @@ FloatingActionButton btn1,btn2,btn3;
         Meal detail = mealDetail.get(0);
         mealName.setText(detail.getStrMeal());
         mealInstructions.setText(detail.getStrInstructions());
-        Glide.with(getContext()).load(detail.getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(mealImage.getDrawable()).into(mealImage);
-        String videoId = detail.getStrYoutube().split("v=")[1];
-        String videoHtml = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allowfullscreen></iframe>";
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.loadDataWithBaseURL(null, videoHtml, "text/html", "UTF-8", null);
         List<String> ingredients = detail.getAllIngredients();
         List<String> measurements = detail.getAllMeasures();
         adapter = new ingrediantsAdapter(ingredients,measurements);
         mealIngredientsList.setAdapter(adapter);
-
         if(detail.getStrArea()!=null && detail.getStrCategory()!=null)
             mealArea.setText("Nationality : "+ detail.getStrArea()+" \nCategory : "+ detail.getStrCategory());
         else if (detail.getStrArea()!=null)
             mealArea.setText("Nationality : "+ detail.getStrArea());
         else if (detail.getStrCategory()!=null)
             mealArea.setText("Category : "+ detail.getStrCategory());
+        if(fromDatabase==false)
+        OnlineStuff(detail);
+
+    }
+
+    private void OnlineStuff(Meal detail) {
+        Glide.with(getContext()).load(detail.getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(mealImage.getDrawable()).into(mealImage);
+        String videoId = detail.getStrYoutube().split("v=")[1];
+        String videoHtml = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allowfullscreen></iframe>";
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.loadDataWithBaseURL(null, videoHtml, "text/html", "UTF-8", null);
     }
 
     @Override
     public void onFailure(Throwable t) {
-        Toast.makeText(getContext(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
     }
 
 

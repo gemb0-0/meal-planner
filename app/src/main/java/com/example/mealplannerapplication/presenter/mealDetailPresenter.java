@@ -35,4 +35,18 @@ public class mealDetailPresenter {
     public void saveMeal(String mealId) {
         repo.saveMeal(mealId);
     }
+
+    public void getFromDb(String mealId) {
+        repo.getFromDb(mealId, new MealDetailCallback() {
+            @Override
+            public void onSuccess(List<Meal> mealDetail) {
+                view.onSuccess(mealDetail);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                view.onFailure(t);
+            }
+        });
+    }
 }
