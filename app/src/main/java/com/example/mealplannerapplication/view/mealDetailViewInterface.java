@@ -8,6 +8,4 @@ public interface mealDetailViewInterface {
     void onSuccess(List<Meal> MealList);
     void onFailure(Throwable t);
 
-//    void onSuccess(List<Meal> MealList) ;
-//    void onFailure( Throwable t);
 }

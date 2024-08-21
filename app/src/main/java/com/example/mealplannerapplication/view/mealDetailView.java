@@ -1,7 +1,10 @@
 package com.example.mealplannerapplication.view;
 
-import android.animation.Animator;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.animation.ObjectAnimator;
+import android.net.ConnectivityManager;
+import android.net.Network;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,7 +44,7 @@ RecyclerView mealIngredientsList;
     WebView webView;
 ScrollView scrollView;
 FloatingActionButton btn1,btn2,btn3;
-Boolean fromDatabase;
+Boolean isOnline;
     public mealDetailView() {
         // Required empty public constructor
     }
@@ -63,7 +66,11 @@ Boolean fromDatabase;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          mealId = mealDetailViewArgs.fromBundle(getArguments()).getMealId();
-        fromDatabase = mealDetailViewArgs.fromBundle(getArguments()).getFromdatabase();
+        ConnectivityManager connectivityManager = getSystemService(getContext() ,ConnectivityManager.class);
+        Network currentNetwork = connectivityManager.getActiveNetwork();
+        if(currentNetwork!=null)
+            isOnline = false;
+
 
         return inflater.inflate(R.layout.fragment_meal_detail_view, container, false);
     }
@@ -72,7 +79,7 @@ Boolean fromDatabase;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        if(fromDatabase==false)
+        if(isOnline ==false)
             presenter.getMealDetail(mealId);
         else
         {
@@ -101,7 +108,7 @@ Boolean fromDatabase;
             ObjectAnimator.ofFloat(scrollView, "translationY", 0).setDuration(200).start();
 
             View fadedScr = view.findViewById(R.id.view);
-            if(btn2.getVisibility() == View.VISIBLE||fromDatabase==true){
+            if(btn2.getVisibility() == View.VISIBLE|| isOnline ==true){
                 hideBtns(fadedScr);
 
             }
@@ -132,6 +139,12 @@ Boolean fromDatabase;
             }
         });
 
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         fadedScr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +171,7 @@ Boolean fromDatabase;
             btn1.animate().setDuration(250).translationY(0);
             btn1.setVisibility(View.VISIBLE);
         }
-        else if (fromDatabase==true){
+        else if (isOnline ==true){
             btn1.setVisibility(View.GONE);
         }
         else {
@@ -176,10 +189,10 @@ Boolean fromDatabase;
         mealInstructions.setText(detail.getStrInstructions());
         List<String> ingredients = detail.getAllIngredients();
         List<String> measurements = detail.getAllMeasures();
-        if(fromDatabase==false)
+        if(isOnline ==false)
             OnlineStuff(detail, ingredients, measurements);
         else {
-            adapter = new ingrediantsAdapter(ingredients, measurements, fromDatabase);
+            adapter = new ingrediantsAdapter(ingredients, measurements, isOnline);
             mealIngredientsList.setAdapter(adapter);
         }
         if(detail.getStrArea()!=null && detail.getStrCategory()!=null)
@@ -201,7 +214,8 @@ Boolean fromDatabase;
         webView.loadDataWithBaseURL(null, videoHtml, "text/html", "UTF-8", null);
         adapter = new ingrediantsAdapter(ingredients, measurements, true);
         mealIngredientsList.setAdapter(adapter);
-
+        adapter = new ingrediantsAdapter(ingredients, measurements, isOnline);
+        mealIngredientsList.setAdapter(adapter);
     }
 
     @Override
