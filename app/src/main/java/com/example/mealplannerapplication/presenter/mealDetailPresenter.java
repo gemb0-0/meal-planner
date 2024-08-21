@@ -1,7 +1,5 @@
 package com.example.mealplannerapplication.presenter;
 
-import android.content.Context;
-
 import com.example.mealplannerapplication.model.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.MealDetailCallback;
@@ -33,7 +31,7 @@ public class mealDetailPresenter {
     }
 
     public void saveMeal(String mealId) {
-        repo.saveMeal(mealId);
+        repo.saveToFav(mealId);
     }
 
     public void getFromDb(String mealId) {
@@ -48,5 +46,9 @@ public class mealDetailPresenter {
                 view.onFailure(t);
             }
         });
+    }
+
+    public void saveMealToPlan(String mealId, String checkedChipDay, String checkedChipMeal) {
+        repo.saveToPlan(mealId, checkedChipDay, checkedChipMeal);
     }
 }

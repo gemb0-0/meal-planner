@@ -1,6 +1,9 @@
 package com.example.mealplannerapplication.view;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
+
+import static java.lang.String.valueOf;
 
 import android.animation.ObjectAnimator;
 import android.net.ConnectivityManager;
@@ -9,16 +12,20 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +36,8 @@ import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.mealDetailPresenter;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -45,9 +54,7 @@ RecyclerView mealIngredientsList;
 ScrollView scrollView;
 FloatingActionButton btn1,btn2,btn3;
 Boolean isOnline;
-    public mealDetailView() {
-        // Required empty public constructor
-    }
+    public mealDetailView() {}
 
     public static mealDetailView newInstance(String param1, String param2) {
         mealDetailView fragment = new mealDetailView();
@@ -71,7 +78,6 @@ Boolean isOnline;
         if(currentNetwork!=null)
             isOnline = false;
 
-
         return inflater.inflate(R.layout.fragment_meal_detail_view, container, false);
     }
 
@@ -91,7 +97,7 @@ Boolean isOnline;
         mealIngredientsList = view.findViewById(R.id.ingredientList);
         mealInstructions = view.findViewById(R.id.instructions);
         webView = view.findViewById(R.id.webView);
-       btn1 = view.findViewById(R.id.floatingActionButton);
+        btn1 = view.findViewById(R.id.floatingActionButton);
         btn2 = view.findViewById(R.id.floatingActionButton2);
         btn3 = view.findViewById(R.id.floatingActionButton3);
         mealIngredientsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -142,7 +148,7 @@ Boolean isOnline;
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showPop_up(view);
             }
         });
 
@@ -168,16 +174,11 @@ Boolean isOnline;
 
     private void onScroll() {
         if (scrollView.getScrollY() == 0) {
-            btn1.animate().setDuration(250).translationY(0);
-            btn1.setVisibility(View.VISIBLE);
-        }
-        else if (isOnline ==true){
-            btn1.setVisibility(View.GONE);
-        }
-        else {
-           btn1.animate().setDuration(200).translationY(500);
-            btn1.setVisibility(View.GONE);
-
+            btn1.animate().setDuration(250).translationY(0).alpha(1f).start();
+        } else if (isOnline) {
+            btn1.animate().setDuration(250).alpha(0f).withEndAction(() -> btn1.setVisibility(View.GONE)).start();
+        } else {
+            btn1.animate().setDuration(200).translationY(500).alpha(0f).withEndAction(() -> btn1.setVisibility(View.GONE)).start();
         }
     }
 
@@ -195,13 +196,24 @@ Boolean isOnline;
             adapter = new ingrediantsAdapter(ingredients, measurements, isOnline);
             mealIngredientsList.setAdapter(adapter);
         }
-        if(detail.getStrArea()!=null && detail.getStrCategory()!=null)
-            mealArea.setText("Nationality : "+ detail.getStrArea()+" \nCategory : "+ detail.getStrCategory());
-        else if (detail.getStrArea()!=null)
-            mealArea.setText("Nationality : "+ detail.getStrArea());
-        else if (detail.getStrCategory()!=null)
-            mealArea.setText("Category : "+ detail.getStrCategory());
 
+        //add icons later
+        if(detail.getStrArea()!=null && detail.getStrCategory()!=null){
+          //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
+            mealArea.setText("Nationality : "+ detail.getStrArea()+" \n");
+          //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24,0,0,0);
+            mealArea.append("Category : "+ detail.getStrCategory());
+        }
+
+        else if (detail.getStrArea()!=null){
+           // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
+            mealArea.setText("Nationality : "+ detail.getStrArea());
+        }
+
+        else if (detail.getStrCategory()!=null) {
+           // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24, 0, 0, 0);
+            mealArea.setText("Category : " + detail.getStrCategory());
+        }
 
     }
 
@@ -224,5 +236,36 @@ Boolean isOnline;
     }
 
 
+
+
+    public void showPop_up (View view){
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup, null);
+        int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        popupWindow.setAnimationStyle(R.style.popupMenuAni);
+        Button b= popupView.findViewById(R.id.saveBtn);
+        ChipGroup dayChipGroup = popupView.findViewById(R.id.daysChips);
+        ChipGroup MealChipGroup = popupView.findViewById(R.id.mealChips);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(dayChipGroup.getCheckedChipId()==-1 || MealChipGroup.getCheckedChipId()==-1)
+                    Toast.makeText(getContext(), "Please select a day and a meal type", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(getContext(), "Meal Saved", Toast.LENGTH_SHORT).show();
+                     String checkedChipDay = ((Chip) popupView.findViewById(dayChipGroup.getCheckedChipId())).getText().toString();
+                     String checkedChipMeal = ((Chip) popupView.findViewById(MealChipGroup.getCheckedChipId())).getText().toString();
+                       presenter.saveMealToPlan(mealId, checkedChipDay,checkedChipMeal);
+
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        hideBtns(view);
+    }
 
 }

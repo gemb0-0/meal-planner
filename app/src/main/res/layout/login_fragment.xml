@@ -10,6 +10,7 @@
         android:id="@+id/imgV"
         android:layout_width="380dp"
         android:layout_height="507dp"
+        app:shapeAppearance="@color/secondary"
         android:src="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,16 +145,5 @@
         app:layout_constraintStart_toStartOf="@+id/imgV"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
         app:layout_constraintVertical_bias="0.512" />
-    <!--    <com.google.android.gms.common.SignInButton-->
-<!--        android:id="@+id/sign_in_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="36dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/imageView"-->
-<!--        app:layout_constraintHorizontal_bias="0.144"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/imageView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/loginBtn"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

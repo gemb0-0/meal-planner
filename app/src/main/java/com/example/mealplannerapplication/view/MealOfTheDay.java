@@ -1,31 +1,23 @@
 package com.example.mealplannerapplication.view;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.navigation.NavController;
-import com.example.mealplannerapplication.view.MealOfTheDayDirections;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Meal;
 import com.example.mealplannerapplication.model.Repository;
@@ -73,7 +65,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface {
         title = view.findViewById(R.id.txtV2);
         mealImage = view.findViewById(R.id.imgV);
         constraintLayout = view.findViewById(R.id.mealsOftheDay);
-        ChipGroup chipGroup = view.findViewById(R.id.chipgroup);
+        ChipGroup chipGroup = view.findViewById(R.id.daysChips);
         mealV = view.findViewById(R.id.mealV);
         chipGroupListener(chipGroup);
 

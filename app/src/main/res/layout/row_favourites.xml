@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="@+id/mealImg"
         app:layout_constraintTop_toTopOf="@+id/mealImg"
         app:rippleColor="@color/secondary_varient"
-        app:tint="@color/primary_varient" />
+        app:tint="#BF4B88A2" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mealImg"

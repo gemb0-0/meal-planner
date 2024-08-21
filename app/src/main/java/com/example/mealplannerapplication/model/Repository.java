@@ -4,7 +4,6 @@ package com.example.mealplannerapplication.model;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import com.example.mealplannerapplication.model.db.DAO;
 import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
@@ -72,7 +71,7 @@ public class Repository {
         });
     }
 
-    public void saveMeal(String mealId) {
+    public void saveToFav(String mealId) {
         fetchMealDetail(mealId, new MealDetailCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
@@ -88,7 +87,7 @@ public class Repository {
     }
 
     public LiveData<List<Meal>> fetchFavourite() {
-      return mealDao.getAllMeals();
+      return mealDao.getAllFavouriteMeals();
     }
 
     public void deleteFav(Meal meal) {
@@ -104,5 +103,22 @@ public class Repository {
                 mealDetailCallback.onFailure(new Throwable("No data found"));
             }
         }).start();
+    }
+
+    public void saveToPlan(String mealId, String checkedChipDay, String checkedChipMeal) {
+        fetchMealDetail(mealId, new MealDetailCallback() {
+            @Override
+            public void onSuccess(List<Meal> mealDetail) {
+                Meal m = mealDetail.get(0);
+               m.setInPlan(true);
+                m.setWeekDay(checkedChipDay);
+                m.setMeal(checkedChipMeal);
+                new Thread(() -> mealDao.insert(m)).start();
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

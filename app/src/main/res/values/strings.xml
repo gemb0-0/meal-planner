@@ -21,5 +21,6 @@
     <string name="dinner">Dinner</string>
     <string name="ingredients">"Ingredients "</string>
     <string name="intstructions">Instructions</string>
+    <string name="popupTxt">Save meal to plan</string>
 
 </resources>
