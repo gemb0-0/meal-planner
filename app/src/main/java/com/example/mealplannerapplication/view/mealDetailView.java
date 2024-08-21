@@ -79,11 +79,10 @@ FloatingActionButton btn1,btn2,btn3;
         mealIngredientsList = view.findViewById(R.id.ingredientList);
         mealInstructions = view.findViewById(R.id.instructions);
         webView = view.findViewById(R.id.webView);
-        mealIngredientsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
        btn1 = view.findViewById(R.id.floatingActionButton);
         btn2 = view.findViewById(R.id.floatingActionButton2);
         btn3 = view.findViewById(R.id.floatingActionButton3);
-
+        mealIngredientsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         scrollView = view.findViewById(R.id.mealDetailscrollV);
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override

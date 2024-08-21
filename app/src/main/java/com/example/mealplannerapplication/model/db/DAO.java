@@ -15,6 +15,9 @@
             @Query("SELECT * FROM meal_table")
             LiveData<List<Meal>> getAllMeals();
 
+            @Query("SELECT * FROM meal_table WHERE idMeal = :mealId")
+            List<Meal> getMealDetail(String mealId);
+
             @Insert(onConflict = OnConflictStrategy.IGNORE)
             void insert(Meal mealDetail);
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,7 @@ import com.example.mealplannerapplication.presenter.favouritePresenter;
 import java.util.List;
 
 
-public class favourite extends Fragment implements FavouriteInterface,deleteFav {
+public class favourite extends Fragment implements FavouriteInterface,deleteFav ,favDetailView{
 
   RecyclerView recyclerView;
     favouritePresenter presenter;
@@ -66,7 +67,7 @@ public class favourite extends Fragment implements FavouriteInterface,deleteFav 
 
     @Override
     public void showFavProducts(List<Meal> mealDetail) {
-         adapter = new FavouriteAdapter(mealDetail,this);
+         adapter = new FavouriteAdapter(mealDetail,this,this);
 
         recyclerView.setAdapter(adapter);
     }
@@ -80,5 +81,16 @@ public class favourite extends Fragment implements FavouriteInterface,deleteFav 
     public void deleteFav(Meal meal) {
         presenter.deleteFav(meal);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getMealDetail(String mealId) {
+
+       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId);
+        Navigation.findNavController(recyclerView).navigate(action);
+
+
+
+
     }
 }

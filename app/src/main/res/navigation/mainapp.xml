@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/favourite"
         android:name="com.example.mealplannerapplication.view.favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favourite_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
+    </fragment>
 
     <fragment
         android:id="@+id/profile"

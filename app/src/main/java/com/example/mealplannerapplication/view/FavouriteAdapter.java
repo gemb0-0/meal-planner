@@ -19,10 +19,12 @@ import java.util.List;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder>{
 deleteFav deletedMeal;
+favDetailView favDetailView;
 List<Meal> mealDetail;
-    public FavouriteAdapter(List<Meal> mealDetail, deleteFav deletedMeal) {
+    public FavouriteAdapter(List<Meal> mealDetail, deleteFav deletedMeal, favDetailView favDetailView) {
         this.mealDetail = mealDetail;
         this.deletedMeal = deletedMeal;
+        this.favDetailView = favDetailView;
     }
 
     @NonNull
@@ -40,10 +42,15 @@ List<Meal> mealDetail;
 
             holder.title.setText(name);
             Glide.with(holder.itemView.getContext()).load(mealDetail.get(position).getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
+
             holder.deleteBtn.setOnClickListener(v ->
                     deletedMeal.deleteFav(mealDetail.get(position))
 
             );
+            holder.mealImage.setOnClickListener(v -> {
+                String mealId = mealDetail.get(position).getIdMeal();
+                favDetailView.getMealDetail(mealId);
+            });
 
 
     }
