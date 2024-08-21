@@ -18,10 +18,12 @@ public class ingrediantsAdapter extends RecyclerView.Adapter<ingrediantsAdapter.
 
     List<String>  Ingredients;
     List<String>  Measurements;
+    Boolean isOffline;
     String url;
-    public ingrediantsAdapter(List<String> allIngredients,List<String> allMeasurements) {
+    public ingrediantsAdapter(List<String> allIngredients,List<String> allMeasurements,Boolean isOffline) {
         this.Ingredients = allIngredients;
         this.Measurements = allMeasurements;
+        this.isOffline = isOffline;
     }
 
     @Override
@@ -35,14 +37,16 @@ public class ingrediantsAdapter extends RecyclerView.Adapter<ingrediantsAdapter.
     @Override
     public void onBindViewHolder(ingrediantsAdapter.ViewHolder holder, int position) {
         holder.title.setText(Ingredients.get(position) + " " + Measurements.get(position));
-        //Glide.with(getContext()).load(mealDetail.get(0).getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(mealImage.getDrawable()).into(mealImage);
-       url =  "https://www.themealdb.com/images/ingredients/"+Ingredients.get(position)+".png";
-        Glide.with(holder.itemView.getContext())
-                .load(url)
-                .apply(new RequestOptions().override(200, 200))
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(holder.imageView);
-
+        holder.title.setTextSize(20);
+        holder.title.setTypeface(null, holder.title.getTypeface().BOLD);
+      if(!isOffline) {
+          url = "https://www.themealdb.com/images/ingredients/" + Ingredients.get(position) + ".png";
+          Glide.with(holder.itemView.getContext())
+                  .load(url)
+                  .apply(new RequestOptions().override(200, 200))
+                  .placeholder(R.drawable.ic_launcher_background)
+                  .into(holder.imageView);
+      }
     }
 
     @Override

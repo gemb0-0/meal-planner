@@ -171,30 +171,37 @@ Boolean fromDatabase;
     @Override
     public void onSuccess(List<Meal> mealDetail) {
         Meal detail = mealDetail.get(0);
-        mealName.setText(detail.getStrMeal());
+
+            mealName.setText(detail.getStrMeal());
         mealInstructions.setText(detail.getStrInstructions());
         List<String> ingredients = detail.getAllIngredients();
         List<String> measurements = detail.getAllMeasures();
-        adapter = new ingrediantsAdapter(ingredients,measurements);
-        mealIngredientsList.setAdapter(adapter);
+        if(fromDatabase==false)
+            OnlineStuff(detail, ingredients, measurements);
+        else {
+            adapter = new ingrediantsAdapter(ingredients, measurements, fromDatabase);
+            mealIngredientsList.setAdapter(adapter);
+        }
         if(detail.getStrArea()!=null && detail.getStrCategory()!=null)
             mealArea.setText("Nationality : "+ detail.getStrArea()+" \nCategory : "+ detail.getStrCategory());
         else if (detail.getStrArea()!=null)
             mealArea.setText("Nationality : "+ detail.getStrArea());
         else if (detail.getStrCategory()!=null)
             mealArea.setText("Category : "+ detail.getStrCategory());
-        if(fromDatabase==false)
-        OnlineStuff(detail);
+
 
     }
 
-    private void OnlineStuff(Meal detail) {
+    private void OnlineStuff(Meal detail, List<String> ingredients, List<String> measurements) {
         Glide.with(getContext()).load(detail.getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(mealImage.getDrawable()).into(mealImage);
         String videoId = detail.getStrYoutube().split("v=")[1];
         String videoHtml = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allowfullscreen></iframe>";
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
         webView.loadDataWithBaseURL(null, videoHtml, "text/html", "UTF-8", null);
+        adapter = new ingrediantsAdapter(ingredients, measurements, true);
+        mealIngredientsList.setAdapter(adapter);
+
     }
 
     @Override
