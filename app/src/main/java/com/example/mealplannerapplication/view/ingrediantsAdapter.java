@@ -1,14 +1,11 @@
 package com.example.mealplannerapplication.view;
 
-import static java.security.AccessController.getContext;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +27,7 @@ public class ingrediantsAdapter extends RecyclerView.Adapter<ingrediantsAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.ingredients, parent, false);
+        View listItem = layoutInflater.inflate(R.layout.row_ingredients, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }

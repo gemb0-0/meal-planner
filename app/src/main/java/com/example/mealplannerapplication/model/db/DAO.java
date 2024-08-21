@@ -1,5 +1,6 @@
         package com.example.mealplannerapplication.model.db;
 
+        import androidx.lifecycle.LiveData;
         import androidx.room.Dao;
         import androidx.room.Delete;
         import androidx.room.Insert;
@@ -12,7 +13,7 @@
         @Dao
         public interface DAO {
             @Query("SELECT * FROM meal_table")
-            List<Meal> getAllMeals();
+            LiveData<List<Meal>> getAllMeals();
 
             @Insert(onConflict = OnConflictStrategy.IGNORE)
             void insert(Meal mealDetail);

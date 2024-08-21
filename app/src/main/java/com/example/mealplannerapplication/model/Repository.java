@@ -3,6 +3,7 @@ package com.example.mealplannerapplication.model;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 
 import com.example.mealplannerapplication.model.db.DAO;
@@ -84,5 +85,13 @@ public class Repository {
                 t.printStackTrace();
             }
         });
+    }
+
+    public LiveData<List<Meal>> fetchFavourite() {
+      return mealDao.getAllMeals();
+    }
+
+    public void deleteFav(Meal meal) {
+        new Thread(() -> mealDao.delete(meal)).start();
     }
 }
