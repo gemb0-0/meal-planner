@@ -22,5 +22,9 @@
     <string name="ingredients">"Ingredients "</string>
     <string name="intstructions">Instructions</string>
     <string name="popupTxt">Save meal to plan</string>
+    <string name="backup">BackUp</string>
+    <string name="restore">Restore</string>
+    <string name="category_title">Categories</string>
+    <string name="Region">Countries</string>
 
 </resources>

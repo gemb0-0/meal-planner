@@ -8,6 +8,7 @@
     <color name="secondary_varient">#C6DABF</color>
     <color name="background">#F3E9D2</color>
     <color name="red">#FF0000</color>
+    <color name="chip_transparent">#00E0E0E0</color>
 
 
     <color name="primary_dark">#FF7F67</color>

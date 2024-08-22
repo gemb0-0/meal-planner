@@ -22,4 +22,6 @@
     <string name="dinner">Dinner</string>
     <string name="ingredients">"Ingredients "</string>
     <string name="intstructions">Instructions</string>
+    <string name="restore">Restore</string>
+    <string name="countries">Countries</string>
 </resources>
