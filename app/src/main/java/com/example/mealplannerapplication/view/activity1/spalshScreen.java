@@ -42,7 +42,7 @@ public class spalshScreen extends AppCompatActivity {
         FirebaseAuth  mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Toast.makeText(this, "Welcome Back", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(this, "Welcome Back", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, activity2.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

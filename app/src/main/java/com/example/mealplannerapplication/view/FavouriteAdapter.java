@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Meal;
@@ -41,7 +42,8 @@ List<Meal> mealDetail;
             String name =   mealDetail.get(position).getStrMeal();
 
             holder.title.setText(name);
-            Glide.with(holder.itemView.getContext()).load(mealDetail.get(position).getStrMealThumb()).apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
+            Glide.with(holder.itemView.getContext()).load(mealDetail.get(position).getStrMealThumb()).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
 
             holder.deleteBtn.setOnClickListener(v ->
                     deletedMeal.deleteFav(mealDetail.get(position))

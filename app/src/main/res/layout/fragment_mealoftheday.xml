@@ -24,19 +24,20 @@
                 android:id="@+id/textView2"
                 android:layout_width="345dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="@string/meal"
                 android:textAlignment="center"
                 android:textColor="@color/primary_varient"
                 android:textSize="45sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="5dp"
-                />
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mealV"
                 android:layout_width="380dp"
                 android:layout_height="440dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="65dp">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -91,61 +92,62 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/daysChips"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
+                app:singleLine="true"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/saturday"
+                    android:id="@+id/Saturday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="S"
-                    app:chipSpacingHorizontal="10dp"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    app:chipSpacingHorizontal="10dp" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/sunday"
+                    android:id="@+id/Sunday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="S" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/monday"
+                    android:id="@+id/Monday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="M"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="M" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/tuesday"
+                    android:id="@+id/Tuesday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="T"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="T" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/wednesday"
+                    android:id="@+id/Wednesday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="W" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/thursday"
+                    android:id="@+id/Thursday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="T"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="T" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/friday"
+                    android:id="@+id/Friday"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="F"
-                    style="@style/Widget.Material3.Chip.Filter" />
+                    android:text="F" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -155,77 +157,109 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:visibility="gone">
+                tools:visibility="visible">
+
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="85dp"
+                    android:id="@+id/txtBreakfast"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:padding="7dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="3dp"
+                    android:gravity="center"
                     android:text="@string/breakfast"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/txtLunch"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="30dp"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:text="@string/launch"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/txtDinner"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/txtBreakfast"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtDinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:text="@string/dinner"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtLunch"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgBreakfast"
-                    android:layout_width="125dp"
+                    android:layout_width="120dp"
                     android:layout_height="100dp"
-                    android:layout_marginStart="5dp"
+
+                    android:layout_marginTop="5dp"
                     android:src="@color/background"
-
+                    app:layout_constraintEnd_toStartOf="@+id/imgLunch"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/txtBreakfast"
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
-                    android:padding="7dp"
-                    android:text="@string/launch"
-                    app:layout_constraintStart_toEndOf="@id/textView4"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgLunch"
-                    android:layout_width="125dp"
+                    android:layout_width="120dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@color/background"
-                    app:layout_constraintStart_toEndOf="@id/imgBreakfast"
-                    app:layout_constraintTop_toBottomOf="@id/textView5"
+                    app:layout_constraintEnd_toStartOf="@+id/imgDinner"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imgBreakfast"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLunch"
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="55dp"
-                    android:padding="7dp"
-                    android:text="@string/dinner"
-                    app:layout_constraintStart_toEndOf="@id/textView5"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgDinner"
-                    android:layout_width="125dp"
+                    android:layout_width="120dp"
                     android:layout_height="100dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="5dp"
                     android:src="@color/background"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgLunch"
-                    app:layout_constraintTop_toBottomOf="@id/textView6"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imgLunch"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDinner"
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toBottomOf="@id/imgLunch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         </LinearLayout>
     </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

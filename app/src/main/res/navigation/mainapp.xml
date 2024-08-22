@@ -40,6 +40,9 @@
         <argument
             android:name="meal_id"
             app:argType="string" />
+        <argument
+            android:name="DB"
+            app:argType="boolean" />
 
     </fragment>
 </navigation>

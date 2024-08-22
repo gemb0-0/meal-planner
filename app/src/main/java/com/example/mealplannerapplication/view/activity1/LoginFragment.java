@@ -61,7 +61,7 @@ public class LoginFragment extends Fragment implements loginInterface {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), activity2.class);
             startActivity(intent);
         }

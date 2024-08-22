@@ -88,11 +88,8 @@ public class favourite extends Fragment implements FavouriteInterface,deleteFav 
 
     @Override
     public void getMealDetail(String mealId) {
-       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId );
+       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId,true );
         Navigation.findNavController(getView()).navigate(action);
-
-
-
 
     }
 }

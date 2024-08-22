@@ -14,12 +14,13 @@
         public interface DAO {
            // @Query("SELECT * FROM meal_table WHERE inPlan != NULL AND mealDate = :today")
 
-            @Query("SELECT * FROM meal_table WHERE inPlan != NULL AND weekDay =:today")
-            LiveData<List<Meal>> getTodayMeals(String today);
+            @Query("SELECT * FROM meal_table WHERE inPlan ==1 AND weekDay =:today")
+            List<Meal> getTodayMeals(String today);
 
             @Query("SELECT * FROM meal_table")
             LiveData<List<Meal>> getAllFavouriteMeals();
 
+         //   @Query("SELECT * FROM meal_table WHERE idMeal = :mealId AND inPlan == NULL")
             @Query("SELECT * FROM meal_table WHERE idMeal = :mealId")
             List<Meal> getMealDetail(String mealId);
 

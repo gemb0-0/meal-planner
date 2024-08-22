@@ -30,7 +30,7 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/saturday"
+            android:id="@+id/Saturday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,42 +38,42 @@
             app:chipSpacingHorizontal="10dp" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/sunday"
+            android:id="@+id/Sunday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sunday" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/monday"
+            android:id="@+id/Monday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Monday" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/tuesday"
+            android:id="@+id/Tuesday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tuesday" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/wednesday"
+            android:id="@+id/Wednesday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wednesday" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/thursday"
+            android:id="@+id/Thursday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thursday" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/friday"
+            android:id="@+id/Friday"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
