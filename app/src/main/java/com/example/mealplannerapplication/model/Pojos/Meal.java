@@ -1,4 +1,4 @@
-package com.example.mealplannerapplication.model;
+package com.example.mealplannerapplication.model.Pojos;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

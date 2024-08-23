@@ -1,6 +1,6 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.TodaysPlanCallback;
 import com.example.mealplannerapplication.model.mealofthedayCallback;

@@ -1,9 +1,8 @@
 package com.example.mealplannerapplication.presenter;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.view.FavouriteInterface;
 import com.example.mealplannerapplication.view.favourite;

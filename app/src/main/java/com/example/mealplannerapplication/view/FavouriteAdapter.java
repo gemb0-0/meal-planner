@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -62,8 +62,8 @@ List<Meal> mealDetail;
         FloatingActionButton deleteBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.mealTitle);
-            mealImage = itemView.findViewById(R.id.mealImg);
+            title = itemView.findViewById(R.id.catTitle);
+            mealImage = itemView.findViewById(R.id.catImg);
             deleteBtn= itemView.findViewById(R.id.deleteBtn);
         }
     }

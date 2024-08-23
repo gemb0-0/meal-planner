@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +21,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.mealOfTheDayPresenter;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     ChipGroup chipGroup;
     ConstraintLayout constraintLayout, mealV;
     String mealId;
+    RecyclerView countiresRecylerView;
+    Chip prev=null;
     public MealOfTheDay() {}
 
     public static MealOfTheDay newInstance(String param1, String param2) {
@@ -75,20 +79,31 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
         txtBreakfast = view.findViewById(R.id.txtBreakfast);
         txtLunch = view.findViewById(R.id.txtLunch);
         txtDinner = view.findViewById(R.id.txtDinner);
-
+        countiresRecylerView = view.findViewById(R.id.countriesRV);
     }
 
     private void chipGroupListener(ChipGroup chipGroup) {
         chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                Chip chip = chipGroup.findViewById(checkedIds.get(0));
+
                 if(checkedIds.size() > 0){
                     Clrscr();
+                    chip.setChipBackgroundColorResource(R.color.primary_varient);
+
+                    if (prev != null && prev != chip) {
+                       // prev.setChipBackgroundColorResource(R.color.primary);
+                        prev.setChipBackgroundColorResource(R.color.chip_transparent);
+                        prev.setChipStrokeWidth(3);
+                    }
+                    prev = chip;
                     String Day = getResources().getResourceEntryName(checkedIds.get(0));
                     presenter.getMealsForTheDay(Day);
                     constraintLayout.setVisibility(View.VISIBLE);
                     Log.d("SelectedChip", "Selected chip: " + Day);
                 } else {
+
                     constraintLayout.setVisibility(View.GONE);
                     Log.d("SelectedChip", "No chip selected");
                     Clrscr();
@@ -123,6 +138,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
                 Navigation.findNavController(v).navigate(action);
             }
         });
+
     }
 
     @Override
@@ -170,11 +186,10 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
                         .into(imgDinner);
             }
         });
-    }
         imgBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               MealOfTheDayDirections.ActionMealofthedayToMealDetailView action = MealOfTheDayDirections.actionMealofthedayToMealDetailView( mealsMap.get("BreakFast").getIdMeal(), true);
+                MealOfTheDayDirections.ActionMealofthedayToMealDetailView action = MealOfTheDayDirections.actionMealofthedayToMealDetailView( mealsMap.get("BreakFast").getIdMeal(), true);
                 Navigation.findNavController(v).navigate(action);
             }
         });
@@ -193,6 +208,8 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
                 Navigation.findNavController(v).navigate(action);
             }
         });
+
+    }
 
 
     @Override

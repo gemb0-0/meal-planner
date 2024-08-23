@@ -5,8 +5,12 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.db.DAO;
 import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
+import com.example.mealplannerapplication.model.response.IngredientsResponseApi;
+import com.example.mealplannerapplication.model.response.RegionResponseApi;
+import com.example.mealplannerapplication.model.response.mealResponseApi;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +19,6 @@ import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Repository {
 
@@ -39,10 +42,10 @@ public class Repository {
 
 
     public void fetchMealoftheday(mealofthedayCallback callback) {
-        Call<mealofthedayResponse> call = MealApi.getMealoftheday();
-        call.enqueue(new Callback<mealofthedayResponse>() {
+        Call<mealResponseApi> call = MealApi.getMealoftheday();
+        call.enqueue(new Callback<mealResponseApi>() {
             @Override
-            public void onResponse(Call<mealofthedayResponse> call, Response<mealofthedayResponse> response) {
+            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMealDetail());
 
@@ -50,7 +53,7 @@ public class Repository {
             }
 
             @Override
-            public void onFailure(Call<mealofthedayResponse> call, Throwable t) {
+            public void onFailure(Call<mealResponseApi> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
@@ -58,10 +61,10 @@ public class Repository {
 
 
     public void fetchMealDetail(String mealId, MealDetailCallback callback) {
-        Call<mealofthedayResponse> call = MealApi.getDetail(mealId);
-        call.enqueue(new Callback<mealofthedayResponse>() {
+        Call<mealResponseApi> call = MealApi.getDetail(mealId);
+        call.enqueue(new Callback<mealResponseApi>() {
             @Override
-            public void onResponse(Call<mealofthedayResponse> call, Response<mealofthedayResponse> response) {
+            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
                 if (response.isSuccessful() && response.body() != null) {
 
                     callback.onSuccess(response.body().getDetail(mealId));
@@ -70,7 +73,7 @@ public class Repository {
             }
 
             @Override
-            public void onFailure(Call<mealofthedayResponse> call, Throwable t) {
+            public void onFailure(Call<mealResponseApi> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
@@ -159,5 +162,62 @@ public class Repository {
             }
         }
         return mealMap;
+    }
+
+    public void getCategories(CategoryCallback callback) {
+        Call<mealResponseApi> call = MealApi.getCategories();
+        call.enqueue(new Callback<mealResponseApi>() {
+            @Override
+            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    System.out.println("fffffffffffffffff"+response.body().getCategories() );
+                  callback.onSuccess(response.body().getCategories());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<mealResponseApi> call, Throwable t) {
+
+                callback.onFailure(t);
+
+            }
+        });
+    }
+
+    public void getRegions(RegionCallback RegionCallback) {
+        Call<RegionResponseApi> call = MealApi.getRegions();
+        call.enqueue(new Callback<RegionResponseApi>() {
+            @Override
+            public void onResponse(Call<RegionResponseApi> call, retrofit2.Response<RegionResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    RegionCallback.onSuccess(
+                            response.body().getRegions()
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegionResponseApi> call, Throwable t) {
+                RegionCallback.onFailure(t);
+            }
+        });
+    }
+
+    public void getIngredients(IngredientsCallback ingredientsCallback) {
+        Call<IngredientsResponseApi> call = MealApi.getIngredients();
+        call.enqueue(new Callback<IngredientsResponseApi>() {
+            @Override
+            public void onResponse(Call<IngredientsResponseApi> call, retrofit2.Response<IngredientsResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ingredientsCallback.onSuccess(response.body().getIngredients());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientsResponseApi> call, Throwable t) {
+                ingredientsCallback.onFailure(t);
+            }
+        });
     }
 }

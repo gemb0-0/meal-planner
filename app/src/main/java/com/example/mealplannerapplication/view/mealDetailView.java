@@ -31,7 +31,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.mealDetailPresenter;
 import com.google.android.material.chip.Chip;
@@ -247,9 +247,32 @@ FloatingActionButton btn1,btn2,btn3;
         Button b= popupView.findViewById(R.id.saveBtn);
         ChipGroup dayChipGroup = popupView.findViewById(R.id.daysChips);
         ChipGroup MealChipGroup = popupView.findViewById(R.id.mealChips);
-
         ControlSaveBtnPopup(b, dayChipGroup, MealChipGroup, popupView, popupWindow);
+        ChipColorControl(dayChipGroup);
+        ChipColorControl(MealChipGroup);
 
+
+    }
+
+    private static void ChipColorControl(ChipGroup dayChipGroup) {
+        dayChipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+           Chip prev=null;
+            @Override
+            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                Chip chip = dayChipGroup.findViewById(checkedIds.get(0));
+                if(checkedIds.size() > 0) {
+                    chip.setChipBackgroundColorResource(R.color.primary_varient);
+
+                    if (prev != null&& prev!=chip)  {
+                       prev.setChipBackgroundColorResource(R.color.chip_transparent);
+                       prev.setChipStrokeWidth(3);
+
+                    }
+                    prev=chip;
+                }
+            }
+
+        });
     }
 
     private void ControlSaveBtnPopup(Button b, ChipGroup dayChipGroup, ChipGroup MealChipGroup, View popupView, PopupWindow popupWindow) {

@@ -25,6 +25,6 @@
     <string name="backup">BackUp</string>
     <string name="restore">Restore</string>
     <string name="category_title">Categories</string>
-    <string name="Region">Countries</string>
+    <string name="Region">Region</string>
 
 </resources>

@@ -1,16 +1,12 @@
 package com.example.mealplannerapplication.view;
 
-import static android.provider.Settings.System.putString;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.Meal;
+import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.favouritePresenter;
 

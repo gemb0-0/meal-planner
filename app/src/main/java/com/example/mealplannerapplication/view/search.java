@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.mealplannerapplication.R;
+import com.example.mealplannerapplication.model.Pojos.Regions;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.Pojos.Category;
 import com.example.mealplannerapplication.presenter.SearchPresenter;
@@ -23,7 +24,7 @@ import java.util.List;
 public class search extends Fragment implements SearchInterface{
 
   SearchView searchView;
-  RecyclerView CategoryrecyclerView;
+  RecyclerView CategoryrecyclerView, RegionrecyclerView;
   SearchPresenter presenter;
 
     public search() {
@@ -40,9 +41,7 @@ public class search extends Fragment implements SearchInterface{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
 
-        }
     }
 
     @Override
@@ -57,11 +56,14 @@ public class search extends Fragment implements SearchInterface{
         super.onViewCreated(view, savedInstanceState);
         searchView = view.findViewById(R.id.searchBox);
         CategoryrecyclerView = view.findViewById(R.id.recyclerView1);
+        RegionrecyclerView = view.findViewById(R.id.recyclerView3);
+
         CategoryrecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false));
-
+        RegionrecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false));
         presenter = new SearchPresenter(this, Repository.getInstance(getContext()));
-        presenter.getDataForSearch();
 
+        presenter.getDataForSearch();
+        presenter.getIngredtients();
     }
 
     @Override
@@ -74,5 +76,11 @@ public class search extends Fragment implements SearchInterface{
     @Override
     public void onError(String message) {
         System.out.println("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    }
+
+    @Override
+    public void showRegionData(List<Regions> regions) {
+        regionAdapter adapter = new regionAdapter(regions);
+        RegionrecyclerView.setAdapter(adapter);
     }
 }
