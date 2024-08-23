@@ -1,6 +1,7 @@
 package com.example.mealplannerapplication.view;
 
 import com.example.mealplannerapplication.model.Pojos.Category;
+import com.example.mealplannerapplication.model.Pojos.Ingredients;
 import com.example.mealplannerapplication.model.Pojos.Regions;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface SearchInterface {
     void onError(String message);
 
     void showRegionData(List<Regions> regions);
+
+    void showIngredients(List<Ingredients> ingredients);
 }

@@ -7,13 +7,12 @@
     app:layout_goneMarginTop="7dp"
     tools:context=".view.favourite">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
-        android:id="@+id/favouriteRecyler"
+        android:id="@+id/searchDetailRecylerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"

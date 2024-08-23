@@ -5,13 +5,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 
-    app:barrierMargin="10dp">
+    android:padding="5dp"
+    app:barrierMargin="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/regionName"
+        android:id="@+id/regionImg"
         android:layout_width="190dp"
         android:layout_height="130dp"
+        android:layout_margin="5dp"
         android:elevation="3dp"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,16 +23,17 @@
         app:srcCompat="@color/background" />
 
     <TextView
-        android:id="@+id/catTitle"
+        android:id="@+id/regionName"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="5dp"
         android:gravity="center"
         android:text="TextView"
+        android:textColor="@color/primary_varient"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/regionName"
-        app:layout_constraintEnd_toEndOf="@+id/regionName"
-        app:layout_constraintStart_toStartOf="@+id/regionName"
-        app:layout_constraintTop_toTopOf="@+id/regionName" />
+        app:layout_constraintBottom_toBottomOf="@+id/regionImg"
+        app:layout_constraintEnd_toEndOf="@+id/regionImg"
+        app:layout_constraintStart_toStartOf="@+id/regionImg"
+        app:layout_constraintTop_toTopOf="@+id/regionImg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

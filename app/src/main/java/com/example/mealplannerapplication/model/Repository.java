@@ -10,6 +10,7 @@ import com.example.mealplannerapplication.model.db.DAO;
 import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
 import com.example.mealplannerapplication.model.response.IngredientsResponseApi;
 import com.example.mealplannerapplication.model.response.RegionResponseApi;
+import com.example.mealplannerapplication.model.response.SingleRegionResponseApi;
 import com.example.mealplannerapplication.model.response.mealResponseApi;
 
 import java.util.HashMap;
@@ -170,7 +171,6 @@ public class Repository {
             @Override
             public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    System.out.println("fffffffffffffffff"+response.body().getCategories() );
                   callback.onSuccess(response.body().getCategories());
 
                 }
@@ -217,6 +217,24 @@ public class Repository {
             @Override
             public void onFailure(Call<IngredientsResponseApi> call, Throwable t) {
                 ingredientsCallback.onFailure(t);
+            }
+        });
+    }
+
+    public void getMealsByRegion(String regionName, SingleRegionCallBack singleRegionCallBack) {
+        Call<SingleRegionResponseApi> call = MealApi.getCountryMeals(regionName);
+        call.enqueue(new Callback<SingleRegionResponseApi>() {
+            @Override
+            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(regionName));
+                    System.out.println("fffffffffffffffff "+response.body().getCountryMeals(regionName).size());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
+                singleRegionCallBack.onFailure(t);
             }
         });
     }

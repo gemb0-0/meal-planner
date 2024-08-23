@@ -13,14 +13,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Pojos.Category;
+import com.example.mealplannerapplication.model.Pojos.Ingredients;
 
 import java.util.List;
 
 public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
     List<Category> categories;
-
-    public catAdapter(List<Category> categories) {
+    List<Ingredients> ingredients;
+    public catAdapter(List<Category> categories, List<Ingredients> ingredients) {
         this.categories = categories;
+       this.ingredients = ingredients;
     }
 
     @NonNull
@@ -34,11 +36,20 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull catAdapter.ViewHolder holder, int position) {
-        holder.name.setText(categories.get(position).getStrCategory());
-        String url = categories.get(position).getStrCategoryThumb();
-        Glide.with(holder.itemView.getContext()).load(url)
-                .apply(new RequestOptions().override(190,130).centerInside()).placeholder(R.drawable.ic_launcher_foreground).into(holder.image);
+        if(ingredients != null) {
+            holder.name.setText(ingredients.get(position).getStrIngredient());
 
+
+          String  url = "https://www.themealdb.com/images/ingredients/" + ingredients.get(position).getStrIngredient() + ".png";
+            Glide.with(holder.itemView.getContext()).load(url)
+                    .apply(new RequestOptions().override(190,130).centerInside()).placeholder(R.drawable.ic_launcher_foreground).into(holder.image);
+
+        }else {
+            holder.name.setText(categories.get(position).getStrCategory());
+            String url = categories.get(position).getStrCategoryThumb();
+            Glide.with(holder.itemView.getContext()).load(url)
+                    .apply(new RequestOptions().override(190, 130).centerInside()).placeholder(R.drawable.ic_launcher_foreground).into(holder.image);
+        }
     }
 
 
@@ -54,6 +65,8 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
+        if(categories == null)
+            return ingredients.size();
         return categories.size();
     }
 

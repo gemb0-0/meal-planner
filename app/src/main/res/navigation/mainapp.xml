@@ -21,7 +21,11 @@
     <fragment
         android:id="@+id/search"
         android:name="com.example.mealplannerapplication.view.search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_to_searchDetailsView"
+            app:destination="@id/searchDetailsView" />
+    </fragment>
     <fragment
         android:id="@+id/mealoftheday"
         android:name="com.example.mealplannerapplication.view.MealOfTheDay"
@@ -45,4 +49,16 @@
             app:argType="boolean" />
 
     </fragment>
+    <fragment
+        android:id="@+id/searchDetailsView"
+        android:name="com.example.mealplannerapplication.view.SearchDetailsView"
+        android:label="SearchDetailsView" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchDetailsView_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
+    </fragment>
+
 </navigation>

@@ -7,14 +7,14 @@
     >
 
 
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/catImg"
         android:layout_width="190dp"
         android:layout_height="130dp"
         android:layout_margin="5dp"
-        android:background="@drawable/custom_shadow"
         android:layout_marginTop="5dp"
+        android:background="@drawable/custom_shadow"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

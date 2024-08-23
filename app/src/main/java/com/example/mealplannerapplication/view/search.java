@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.mealplannerapplication.R;
+import com.example.mealplannerapplication.model.Pojos.Ingredients;
 import com.example.mealplannerapplication.model.Pojos.Regions;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.Pojos.Category;
@@ -21,10 +23,10 @@ import com.example.mealplannerapplication.presenter.SearchPresenter;
 
 import java.util.List;
 
-public class search extends Fragment implements SearchInterface{
+public class search extends Fragment implements SearchInterface, RegionAdapterCallback {
 
   SearchView searchView;
-  RecyclerView CategoryrecyclerView, RegionrecyclerView;
+  RecyclerView CategoryrecyclerView, RegionrecyclerView, IngredientsrecyclerView;
   SearchPresenter presenter;
 
     public search() {
@@ -57,19 +59,22 @@ public class search extends Fragment implements SearchInterface{
         searchView = view.findViewById(R.id.searchBox);
         CategoryrecyclerView = view.findViewById(R.id.recyclerView1);
         RegionrecyclerView = view.findViewById(R.id.recyclerView3);
-
+        IngredientsrecyclerView = view.findViewById(R.id.recyclerView2);
         CategoryrecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false));
         RegionrecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false));
+        IngredientsrecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false));
+
+
         presenter = new SearchPresenter(this, Repository.getInstance(getContext()));
 
         presenter.getDataForSearch();
-        presenter.getIngredtients();
+
     }
 
     @Override
     public void showData(List<Category> categories) {
 
-        catAdapter adapter = new catAdapter(categories);
+        catAdapter adapter = new catAdapter(categories,null);
         CategoryrecyclerView.setAdapter(adapter);
     }
 
@@ -80,7 +85,22 @@ public class search extends Fragment implements SearchInterface{
 
     @Override
     public void showRegionData(List<Regions> regions) {
-        regionAdapter adapter = new regionAdapter(regions);
+        regionAdapter adapter = new regionAdapter(regions,this);
         RegionrecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showIngredients(List<Ingredients> ingredients) {
+        catAdapter adapter = new catAdapter(null,ingredients);
+        IngredientsrecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onRegionClick(String regionName) {
+
+        searchDirections.ActionSearchToSearchDetailsView action = searchDirections.actionSearchToSearchDetailsView(regionName);
+        Navigation.findNavController(getView()).navigate(action);
+
+       // presenter.getMealsByRegion(regionName);
     }
 }

@@ -22,7 +22,7 @@ import com.example.mealplannerapplication.presenter.favouritePresenter;
 import java.util.List;
 
 
-public class favourite extends Fragment implements FavouriteInterface,deleteFav ,favDetailView{
+public class favourite extends Fragment implements FavouriteInterface, deleteFavCallback,favDetailView{
 
   RecyclerView recyclerView;
     favouritePresenter presenter;
@@ -57,7 +57,7 @@ public class favourite extends Fragment implements FavouriteInterface,deleteFav 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.favourite_recycler_view);
+        recyclerView = view.findViewById(R.id.favouriteRecyler);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         presenter= new favouritePresenter(Repository.getInstance(getContext()),this);
        presenter.retriveFavourite();

@@ -30,7 +30,9 @@ public class activity2 extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.mealDetailView) {
+            if (destination.getId() == R.id.mealDetailView
+                    //||destination.getId()==R.id.searchDetailsView
+            ) {
                 bottomNavigationView.setVisibility(View.GONE);
             } else {
                 bottomNavigationView.setVisibility(View.VISIBLE);

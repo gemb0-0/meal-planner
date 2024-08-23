@@ -13,48 +13,43 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.Pojos.Meal;
+import com.example.mealplannerapplication.model.Pojos.SingleRegionMeals;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder>{
-deleteFavCallback deletedMeal;
-favDetailView favDetailView;
-List<Meal> mealDetail;
-    public FavouriteAdapter(List<Meal> mealDetail, deleteFavCallback deletedMeal, favDetailView favDetailView) {
-        this.mealDetail = mealDetail;
-        this.deletedMeal = deletedMeal;
-        this.favDetailView = favDetailView;
+public class searchDetailsAdapter extends RecyclerView.Adapter<searchDetailsAdapter.ViewHolder> {
+List<SingleRegionMeals> regionMeal;
+    SearchDetailAdapterCallback callback;
+    public searchDetailsAdapter(SearchDetailAdapterCallback callback,List<SingleRegionMeals>mealDetail) {
+        this.regionMeal = mealDetail;
+        this.callback = callback;
+
     }
 
     @NonNull
     @Override
-    public FavouriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.row_favourites, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavouriteAdapter.ViewHolder holder, int position) {
-            String name =   mealDetail.get(position).getStrMeal();
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            holder.title.setText(name);
-            Glide.with(holder.itemView.getContext()).load(mealDetail.get(position).getStrMealThumb()).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
-
-            holder.deleteBtn.setOnClickListener(v ->
-                    deletedMeal.deleteFav(mealDetail.get(position))
-
-            );
-            holder.mealImage.setOnClickListener(v -> {
-                String mealId = mealDetail.get(position).getIdMeal();
-                favDetailView.getMealDetail(mealId);
+    holder.deleteBtn.setVisibility(View.GONE);
+    holder.title.setText(regionMeal.get(position).getStrMeal());
+        Glide.with(holder.itemView.getContext()).load(regionMeal.get(position).getStrMealThumb())
+                .apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
+            holder.mealImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onMealClicked(regionMeal.get(position).getIdMeal());
+                }
             });
-
-
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
@@ -69,8 +64,9 @@ List<Meal> mealDetail;
     }
     @Override
     public int getItemCount() {
-        return mealDetail.size();
+        return regionMeal.size();
     }
+
 
 
 }

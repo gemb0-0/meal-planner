@@ -3,6 +3,7 @@ package com.example.mealplannerapplication.model.Pojos;
 import com.google.gson.annotations.SerializedName;
 
 public class Regions {
+
     @SerializedName("strArea")
     private String strArea;
 

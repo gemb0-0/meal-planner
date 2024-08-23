@@ -68,6 +68,7 @@ FloatingActionButton btn1,btn2,btn3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
          mealId = mealDetailViewArgs.fromBundle(getArguments()).getMealId();
          DB = mealDetailViewArgs.fromBundle(getArguments()).getDB();
        // ConnectivityManager connectivityManager = getSystemService(getContext() ,ConnectivityManager.class);
