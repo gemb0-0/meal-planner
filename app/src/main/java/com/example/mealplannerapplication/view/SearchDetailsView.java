@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SearchDetailsView extends Fragment implements SearchDetailsInterface , SearchDetailAdapterCallback {
     RecyclerView recyclerView;
-    String id;
+    String id,type;
     searchDetailPresenter presenter;
     public SearchDetailsView() {
     }
@@ -46,6 +46,7 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         id =getArguments().getString("id");
+        type = getArguments().getString("type");
         //if there's a problem with the above use this one
         // id = SearchDetailViewArgs.fromBundle(getArguments()).getId();
 
@@ -60,7 +61,14 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
         presenter = new searchDetailPresenter(Repository.getInstance(getContext()),this);
+
+       if(type.equals("r"))
         presenter.getMealsByRegion(id);
+       else if (type.equals("i"))
+           presenter.getMealsByIngredient(id);
+       else if (type.equals("c"))
+           presenter.getMealsByCategory(id);
+
     }
 
     @Override

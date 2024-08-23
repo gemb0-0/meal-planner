@@ -20,6 +20,12 @@ public interface MealApi {
     @GET("filter.php")
     Call<SingleRegionResponseApi> getCountryMeals(@Query("a") String country);
 
+    @GET("filter.php")
+    Call<SingleRegionResponseApi> getIngrediantMeal(@Query("c") String country);
+
+    @GET("filter.php")
+    Call<SingleRegionResponseApi> getCategoryMeal(@Query("i") String country);
+
     @GET("categories.php")
     Call<mealResponseApi> getCategories();
 

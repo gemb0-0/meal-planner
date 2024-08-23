@@ -20,6 +20,10 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="345dp"
@@ -96,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
-                app:singleLine="true"
+                android:layout_margin="5dp"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -104,7 +108,7 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S"
+                    android:text="Saturday"
                     app:chipSpacingHorizontal="10dp" />
 
                 <com.google.android.material.chip.Chip
@@ -112,14 +116,14 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S" />
+                    android:text="Sunday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/Monday"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="M" />
+                    android:text="Monday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/Tuesday"
@@ -127,28 +131,28 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="T" />
+                    android:text="Tuesday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/Wednesday"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W" />
+                    android:text="Wednesday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/Thursday"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="T" />
+                    android:text="Thursday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/Friday"
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="F" />
+                    android:text="Friday" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -244,6 +248,10 @@
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/countriesRV"

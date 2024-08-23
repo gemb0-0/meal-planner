@@ -238,4 +238,40 @@ public class Repository {
             }
         });
     }
+
+
+
+    public void getMealsByIngredient(String id, SingleRegionCallBack singleRegionCallBack) {
+        Call<SingleRegionResponseApi> call = MealApi.getIngrediantMeal(id);
+        call.enqueue(new Callback<SingleRegionResponseApi>() {
+            @Override
+            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(id));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
+                singleRegionCallBack.onFailure(t);
+            }
+        });
+    }
+
+    public void getMealsByCategory(String id, SingleRegionCallBack singleRegionCallBack) {
+        Call<SingleRegionResponseApi> call = MealApi.getCategoryMeal(id);
+        call.enqueue(new Callback<SingleRegionResponseApi>() {
+            @Override
+            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(id));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
+                singleRegionCallBack.onFailure(t);
+            }
+        });
+    }
 }

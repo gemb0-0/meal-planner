@@ -260,8 +260,8 @@ FloatingActionButton btn1,btn2,btn3;
            Chip prev=null;
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                Chip chip = dayChipGroup.findViewById(checkedIds.get(0));
                 if(checkedIds.size() > 0) {
+                    Chip chip = dayChipGroup.findViewById(checkedIds.get(0));
                     chip.setChipBackgroundColorResource(R.color.primary_varient);
 
                     if (prev != null&& prev!=chip)  {
@@ -270,6 +270,11 @@ FloatingActionButton btn1,btn2,btn3;
 
                     }
                     prev=chip;
+                }
+                else if(prev!=null) {
+                        prev.setChipBackgroundColorResource(R.color.chip_transparent);
+                        prev.setChipStrokeWidth(3);
+
                 }
             }
 

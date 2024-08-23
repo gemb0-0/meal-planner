@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_searchDetailsView_to_mealDetailView"
             app:destination="@id/mealDetailView" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
 
 </navigation>

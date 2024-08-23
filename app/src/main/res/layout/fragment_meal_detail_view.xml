@@ -136,15 +136,15 @@
         android:id="@+id/floatingActionButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="25dp"
-        app:tint="@color/white"
-        app:backgroundTint="@color/primary_varient"
-        app:rippleColor="#80FFFFFF"
         android:clickable="false"
-        android:src="@drawable/baseline_edit_calendar_24"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2" />
+        android:src="@drawable/calender"
+        android:visibility="gone"
+        app:backgroundTint="@color/primary_varient"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#80FFFFFF"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

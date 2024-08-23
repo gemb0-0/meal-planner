@@ -20,9 +20,13 @@ import java.util.List;
 public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
     List<Category> categories;
     List<Ingredients> ingredients;
-    public catAdapter(List<Category> categories, List<Ingredients> ingredients) {
+    IngradientsAdapterCallback callback;
+    CategoriesAdapterCallback catCallback;
+    public catAdapter(List<Category> categories, List<Ingredients> ingredients, IngradientsAdapterCallback callback, CategoriesAdapterCallback catCallback) {
         this.categories = categories;
        this.ingredients = ingredients;
+        this.callback = callback;
+        this.catCallback = catCallback;
     }
 
     @NonNull
@@ -38,17 +42,28 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull catAdapter.ViewHolder holder, int position) {
         if(ingredients != null) {
             holder.name.setText(ingredients.get(position).getStrIngredient());
-
-
           String  url = "https://www.themealdb.com/images/ingredients/" + ingredients.get(position).getStrIngredient() + ".png";
             Glide.with(holder.itemView.getContext()).load(url)
                     .apply(new RequestOptions().override(190,130).centerInside()).placeholder(R.drawable.ic_launcher_foreground).into(holder.image);
-
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.name.getText();
+                    callback.onIngredientClicked(ingredients.get(position).getStrIngredient());
+                }
+            });
         }else {
             holder.name.setText(categories.get(position).getStrCategory());
             String url = categories.get(position).getStrCategoryThumb();
             Glide.with(holder.itemView.getContext()).load(url)
                     .apply(new RequestOptions().override(190, 130).centerInside()).placeholder(R.drawable.ic_launcher_foreground).into(holder.image);
+      holder.image.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              holder.name.getText();
+              catCallback.onCategoryClicked(categories.get(position).getStrCategory());
+          }
+      });
         }
     }
 

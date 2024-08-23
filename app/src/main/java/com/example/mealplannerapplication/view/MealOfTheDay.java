@@ -86,26 +86,31 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
         chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                Chip chip = chipGroup.findViewById(checkedIds.get(0));
+
 
                 if(checkedIds.size() > 0){
-                    Clrscr();
-                    chip.setChipBackgroundColorResource(R.color.primary_varient);
+                    Chip chip = chipGroup.findViewById(checkedIds.get(0));
+                    if(chip != null) {
+                        Clrscr();
+                        chip.setChipBackgroundColorResource(R.color.primary_varient);
 
-                    if (prev != null && prev != chip) {
-                       // prev.setChipBackgroundColorResource(R.color.primary);
+                        if (prev != null && prev != chip) {
+                            // prev.setChipBackgroundColorResource(R.color.primary);
+                            prev.setChipBackgroundColorResource(R.color.chip_transparent);
+                            prev.setChipStrokeWidth(3);
+                        }
+                        prev = chip;
+                        String Day = getResources().getResourceEntryName(checkedIds.get(0));
+                        presenter.getMealsForTheDay(Day);
+                        constraintLayout.setVisibility(View.VISIBLE);
+
+                    }
+                    } else {
+                    if(prev != null) {
                         prev.setChipBackgroundColorResource(R.color.chip_transparent);
                         prev.setChipStrokeWidth(3);
                     }
-                    prev = chip;
-                    String Day = getResources().getResourceEntryName(checkedIds.get(0));
-                    presenter.getMealsForTheDay(Day);
-                    constraintLayout.setVisibility(View.VISIBLE);
-                    Log.d("SelectedChip", "Selected chip: " + Day);
-                } else {
-
                     constraintLayout.setVisibility(View.GONE);
-                    Log.d("SelectedChip", "No chip selected");
                     Clrscr();
                 }
             }
