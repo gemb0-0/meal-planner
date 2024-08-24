@@ -5,20 +5,22 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.mealplannerapplication.model.CallbackInterfaces.CategoryCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.FirebaseCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.IngredientsCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.RegionCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.SingleRegionCallBack;
-import com.example.mealplannerapplication.model.CallbackInterfaces.TodaysPlanCallback;
-import com.example.mealplannerapplication.model.Pojos.Meal;
-import com.example.mealplannerapplication.model.db.DAO;
-import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
-import com.example.mealplannerapplication.model.response.IngredientsResponseApi;
-import com.example.mealplannerapplication.model.response.RegionResponseApi;
-import com.example.mealplannerapplication.model.response.SingleRegionResponseApi;
-import com.example.mealplannerapplication.model.response.mealResponseApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.CategoryCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.FirebaseCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.IngredientsCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.RegionCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.SingleRegionCallBack;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.TodaysPlanCallback;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
+import com.example.mealplannerapplication.model.RemoteDataSource.MealApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.retrofit;
+import com.example.mealplannerapplication.model.LocalDataSource.db.DAO;
+import com.example.mealplannerapplication.model.LocalDataSource.db.MealLocalDataSaurce;
+import com.example.mealplannerapplication.model.RemoteDataSource.response.IngredientsResponseApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.response.RegionResponseApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.response.SingleRegionResponseApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.response.mealResponseApi;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,7 +37,7 @@ import retrofit2.Callback;
 public class Repository {
 
     private static Repository repository;
-    private MealApi MealApi;
+    private com.example.mealplannerapplication.model.RemoteDataSource.MealApi MealApi;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private DAO mealDao;
     private FirebaseAuth mAuth;

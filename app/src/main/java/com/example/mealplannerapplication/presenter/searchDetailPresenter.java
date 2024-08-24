@@ -1,9 +1,9 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.model.Pojos.SingleRegionMeals;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.SingleRegionMeals;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.CallbackInterfaces.SingleRegionCallBack;
-import com.example.mealplannerapplication.view.SearchDetailsInterface;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.SingleRegionCallBack;
+import com.example.mealplannerapplication.view.activity2.SearchDetails.SearchDetailsInterface;
 
 import java.util.List;
 

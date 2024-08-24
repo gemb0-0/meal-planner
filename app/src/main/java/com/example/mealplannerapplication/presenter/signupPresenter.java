@@ -6,12 +6,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.mealplannerapplication.view.activity1.signupFragment;
-import com.example.mealplannerapplication.view.activity1.signupInterface;
+import com.example.mealplannerapplication.R;
+import com.example.mealplannerapplication.view.activity1.SignUp.signupFragment;
+import com.example.mealplannerapplication.view.activity1.SignUp.signupInterface;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -39,12 +39,12 @@ private FirebaseFirestore db;
                     db.collection("users").document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot added with ID: " + id);
+                            Log.d(TAG,  R.string.error_adding_document + id);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
+                            Log.w(TAG, String.valueOf(R.string.error_adding_document), e);
                         }
                     });
                 } else {

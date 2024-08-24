@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/favourite"
-        android:name="com.example.mealplannerapplication.view.favourite"
+        android:name="com.example.mealplannerapplication.view.activity2.Favourite.favourite"
         tools:layout="@layout/fragment_favourite" >
         <action
             android:id="@+id/action_favourite_to_mealDetailView"
@@ -16,11 +16,11 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.mealplannerapplication.view.UserProfile"
+        android:name="com.example.mealplannerapplication.view.activity2.Profile.UserProfile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.mealplannerapplication.view.search"
+        android:name="com.example.mealplannerapplication.view.activity2.Search.search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_search_to_searchDetailsView"
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealoftheday"
-        android:name="com.example.mealplannerapplication.view.MealOfTheDay.MealOfTheDay"
+        android:name="com.example.mealplannerapplication.view.activity2.MealOfTheDay.MealOfTheDay"
         tools:layout="@layout/fragment_mealoftheday" >
 
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealDetailView"
-        android:name="com.example.mealplannerapplication.view.mealDetailView"
+        android:name="com.example.mealplannerapplication.view.activity2.MealDetailView.mealDetailView"
         android:label="fragment_meal_detail_view"
         tools:layout="@layout/fragment_meal_detail_view" >
 
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchDetailsView"
-        android:name="com.example.mealplannerapplication.view.SearchDetailsView"
+        android:name="com.example.mealplannerapplication.view.activity2.SearchDetails.SearchDetailsView"
         android:label="SearchDetailsView" >
         <argument
             android:name="id"

@@ -2,10 +2,10 @@ package com.example.mealplannerapplication.presenter;
 
 import androidx.lifecycle.Observer;
 
-import com.example.mealplannerapplication.model.Pojos.Meal;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.view.FavouriteInterface;
-import com.example.mealplannerapplication.view.favourite;
+import com.example.mealplannerapplication.view.activity2.Favourite.FavouriteInterface;
+import com.example.mealplannerapplication.view.activity2.Favourite.favourite;
 
 import java.util.List;
 

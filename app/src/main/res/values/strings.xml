@@ -8,7 +8,7 @@
     <string name="login">Login, signup or continue as a guest</string>
     <string name="loginbtn">Login</string>
     <string name="signupbtn">Sign up</string>
-    <string name="guest">Or continue as a guest</string>
+    <string name="guest_logintxt">Or continue as a guest</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="confirmpassword">Confirm password</string>
@@ -39,5 +39,15 @@
     <string name="error">Error</string>
     <string name="breakfastdb">BreakFast</string>
     <string name="lunch">Lunch</string>
+    <string name="please_login_to_make_or_view_meal_plans">Please login to make or view meal plans</string>
+    <string name="guest">guest</string>
+    <string name="no_meals_found_err">No meals found</string>
+    <string name="please_select_a_day_and_a_meal_type">Please select a day and a meal type</string>
+    <string name="mealsaved">Meal Saved</string>
+    <string name="nationality">Nationality : </string>
+    <string name="category">Category : </string>
+    <string name="no_fav">No Favourites Found</string>
+    <string name="no_fav_guest">Login to use the app</string>
+    <string name="sign_up_or_sign_in_to_view_your_profile">Sign up or sign in to view your profile</string>
 
 </resources>

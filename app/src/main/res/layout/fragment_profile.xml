@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.UserProfile">
+    tools:context=".view.activity2.Profile.UserProfile">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ingredientImage"

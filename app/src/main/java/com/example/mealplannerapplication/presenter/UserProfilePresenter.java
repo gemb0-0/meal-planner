@@ -1,13 +1,8 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.model.CallbackInterfaces.FirebaseCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.FirebaseCallback;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.view.UserProfileInterface;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.example.mealplannerapplication.view.activity2.Profile.UserProfileInterface;
 
 public class UserProfilePresenter {
     Repository repo;

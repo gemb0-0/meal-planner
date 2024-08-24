@@ -9,7 +9,7 @@
     <string name="login">Login, signup or continue as a guest</string>
     <string name="loginbtn">Login</string>
     <string name="signupbtn">Sign up</string>
-    <string name="guest">Or continue as a guest</string>
+    <string name="guest_logintxt">Or continue as a guest</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="confirmpassword">Confirm password</string>
@@ -26,4 +26,6 @@
     <string name="countries">Countries</string>
     <string name="meals">Meals</string>
     <string name="login_failed_wrong_email_or_password">Login Failed, wrong email or password</string>
+    <string name="please_login_to_make_or_view_meal_plans">Please login to make or view meal plans</string>
+    <string name="no_meals_found_err">No meals found</string>
 </resources>

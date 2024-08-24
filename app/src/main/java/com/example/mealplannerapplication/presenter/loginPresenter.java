@@ -1,11 +1,8 @@
 package com.example.mealplannerapplication.presenter;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
-import com.example.mealplannerapplication.view.activity1.loginInterface;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.example.mealplannerapplication.view.activity1.Login.loginInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -1,11 +1,11 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
-import com.example.mealplannerapplication.model.Pojos.Meal;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealCallback;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.CallbackInterfaces.TodaysPlanCallback;
-import com.example.mealplannerapplication.view.MealOfTheDay.MealOfTheDayInterface;
-import com.example.mealplannerapplication.view.viewPlanInterface;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.TodaysPlanCallback;
+import com.example.mealplannerapplication.view.activity2.MealOfTheDay.MealOfTheDayInterface;
+import com.example.mealplannerapplication.view.activity2.MealOfTheDay.viewPlanInterface;
 
 import java.util.List;
 import java.util.Map;

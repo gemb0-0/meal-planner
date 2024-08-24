@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity1.LoginFragment" >
+    tools:context=".view.activity1.Login.LoginFragment" >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgV"
@@ -117,7 +117,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/guest"
+        android:text="@string/guest_logintxt"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgV"
         app:layout_constraintEnd_toEndOf="@+id/imgV"

@@ -1,15 +1,15 @@
 package com.example.mealplannerapplication.presenter;
 
-import com.example.mealplannerapplication.model.CallbackInterfaces.CategoryCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.IngredientsCallback;
-import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
-import com.example.mealplannerapplication.model.Pojos.Ingredients;
-import com.example.mealplannerapplication.model.Pojos.Meal;
-import com.example.mealplannerapplication.model.Pojos.Regions;
-import com.example.mealplannerapplication.model.CallbackInterfaces.RegionCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.CategoryCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.IngredientsCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealCallback;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Ingredients;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Regions;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.RegionCallback;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.Pojos.Category;
-import com.example.mealplannerapplication.view.SearchInterface;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Category;
+import com.example.mealplannerapplication.view.activity2.Search.SearchInterface;
 
 import java.util.ArrayList;
 import java.util.List;
