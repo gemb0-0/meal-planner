@@ -245,7 +245,6 @@ public class Repository {
             public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     singleRegionCallBack.onSuccess(response.body().getCountryMeals(regionName));
-                    System.out.println("fffffffffffffffff "+response.body().getCountryMeals(regionName).size());
                 }
             }
 

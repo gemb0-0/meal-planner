@@ -43,7 +43,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     String mealId;
     RecyclerView countiresRecylerView;
     Chip prev=null;
-    boolean guest=false;
+    boolean guest;
     public MealOfTheDay() {}
 
     public static MealOfTheDay newInstance(String param1, String param2) {
@@ -68,7 +68,6 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sharedPrefData();
         presenter = new mealOfTheDayPresenter(this,   this,Repository.getInstance(getContext()));
         presenter.getMealOfTheDay();
         title = view.findViewById(R.id.txtV2);
@@ -91,10 +90,6 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
         }
     }
 
-    private void sharedPrefData() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(String.valueOf(R.string.guest), MODE_PRIVATE);
-         guest = sharedPreferences.getBoolean(getString(R.string.guest), false);
-    }
 
     private void chipGroupListener(ChipGroup chipGroup) {
         chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
@@ -170,10 +165,10 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     public void getMealsForTheDay(Map<String, Meal> mealsMap) {
 
         requireActivity().runOnUiThread(() -> {
-            if (mealsMap.containsKey(R.string.breakfast)) {
-                txtBreakfast.setText(R.string.breakfast);
+            if (mealsMap.containsKey("BreakFast")) {
+                txtBreakfast.setText("BreakFast");
                 Glide.with(requireContext())
-                        .load(mealsMap.get(getString(R.string.breakfastdb)).getStrMealThumb())
+                        .load(mealsMap.get("BreakFast").getStrMealThumb())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .apply(new RequestOptions())
                         .centerCrop()
@@ -182,7 +177,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
             }
 
 
-            if (mealsMap.containsKey(R.string.launch)) {
+            if (mealsMap.containsKey("Launch")) {
                 txtLunch.setText(R.string.lunch);
                 Glide.with(requireContext())
                         .load(mealsMap.get("Launch").getStrMealThumb())
