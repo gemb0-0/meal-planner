@@ -12,7 +12,10 @@ import java.util.ArrayList;
             @PrimaryKey
             @NotNull
             private String idMeal;
-            
+
+            public Meal() {
+            }
+
             private String strMeal;
             private String strDrinkAlternate;
             private String strCategory;

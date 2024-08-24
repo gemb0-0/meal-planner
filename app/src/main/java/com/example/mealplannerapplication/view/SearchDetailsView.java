@@ -86,7 +86,6 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
     @Override
     public void onMealClicked(String mealId) {
         SearchDetailsViewDirections.ActionSearchDetailsViewToMealDetailView action = SearchDetailsViewDirections.actionSearchDetailsViewToMealDetailView(mealId,false);
-      //  SearchDetailsViewDirections.ActionSearchDetailsViewToMealDetailView action = SearchDetailsViewDirections.ActionSearchDetailsViewToMealDetailView(mealId,false);
         Navigation.findNavController(getView()).navigate(action);
 
 

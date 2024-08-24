@@ -24,4 +24,6 @@
     <string name="intstructions">Instructions</string>
     <string name="restore">Restore</string>
     <string name="countries">Countries</string>
+    <string name="meals">Meals</string>
+    <string name="login_failed_wrong_email_or_password">Login Failed, wrong email or password</string>
 </resources>

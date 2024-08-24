@@ -1,5 +1,8 @@
-package com.example.mealplannerapplication.view;
+package com.example.mealplannerapplication.view.MealOfTheDay;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,7 @@ import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.mealOfTheDayPresenter;
+import com.example.mealplannerapplication.view.viewPlanInterface;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import java.util.List;
@@ -40,6 +44,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     String mealId;
     RecyclerView countiresRecylerView;
     Chip prev=null;
+    boolean isLoggedIn;
     public MealOfTheDay() {}
 
     public static MealOfTheDay newInstance(String param1, String param2) {
@@ -64,7 +69,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sharedPrefData();
         presenter = new mealOfTheDayPresenter(this,   this,Repository.getInstance(getContext()));
         presenter.getMealOfTheDay();
         title = view.findViewById(R.id.txtV2);
@@ -80,6 +85,14 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
         txtLunch = view.findViewById(R.id.txtLunch);
         txtDinner = view.findViewById(R.id.txtDinner);
         countiresRecylerView = view.findViewById(R.id.countriesRV);
+        if(!isLoggedIn){
+            chipGroup.setVisibility(View.GONE);
+        }
+    }
+
+    private void sharedPrefData() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("guest", MODE_PRIVATE);
+         isLoggedIn = sharedPreferences.getBoolean("guest", true);
     }
 
     private void chipGroupListener(ChipGroup chipGroup) {
@@ -148,7 +161,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
 
     @Override
     public void onFailure(Throwable t) {
-        Log.i("Error", t.getMessage());
+        Log.i(getString(R.string.error), t.getMessage());
     }
 
 
@@ -156,10 +169,10 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
     public void getMealsForTheDay(Map<String, Meal> mealsMap) {
 
         requireActivity().runOnUiThread(() -> {
-            if (mealsMap.containsKey("BreakFast")) {
-                txtBreakfast.setText("Breakfast");
+            if (mealsMap.containsKey(R.string.breakfast)) {
+                txtBreakfast.setText(R.string.breakfast);
                 Glide.with(requireContext())
-                        .load(mealsMap.get("BreakFast").getStrMealThumb())
+                        .load(mealsMap.get(getString(R.string.breakfastdb)).getStrMealThumb())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .apply(new RequestOptions())
                         .centerCrop()
@@ -168,8 +181,8 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
             }
 
 
-            if (mealsMap.containsKey("Launch")) {
-                txtLunch.setText("Lunch");
+            if (mealsMap.containsKey(R.string.launch)) {
+                txtLunch.setText(R.string.lunch);
                 Glide.with(requireContext())
                         .load(mealsMap.get("Launch").getStrMealThumb())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -190,7 +203,7 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
                         .placeholder(imgDinner.getDrawable())
                         .into(imgDinner);
             }
-        });
+
         imgBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,14 +226,15 @@ public class MealOfTheDay extends Fragment implements MealOfTheDayInterface, vie
                 Navigation.findNavController(v).navigate(action);
             }
         });
-
+        });
     }
 
 
     @Override
     public void errorGettingSchedule(Throwable t) {
-       txtLunch.setText("No meals found");
-
-        Log.i("Error", t.getMessage());
+        getActivity().runOnUiThread(() -> {
+            txtLunch.setText("No meals found");
+        });
+        Log.i(String.valueOf(R.string.error), t.getMessage());
     }
 }

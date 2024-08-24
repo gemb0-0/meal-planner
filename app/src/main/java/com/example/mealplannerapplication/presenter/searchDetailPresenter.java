@@ -2,7 +2,7 @@ package com.example.mealplannerapplication.presenter;
 
 import com.example.mealplannerapplication.model.Pojos.SingleRegionMeals;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.SingleRegionCallBack;
+import com.example.mealplannerapplication.model.CallbackInterfaces.SingleRegionCallBack;
 import com.example.mealplannerapplication.view.SearchDetailsInterface;
 
 import java.util.List;

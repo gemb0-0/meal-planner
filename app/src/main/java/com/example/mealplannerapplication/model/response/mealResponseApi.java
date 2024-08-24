@@ -16,4 +16,5 @@ public class mealResponseApi {
     public List<Meal> getMealDetail() {return meals;}
     public List<Meal> getDetail(@Query("i") String mealId) {return meals;}
     public List<Category> getCategories() {return categories;}
+    public List<Meal> getMealByName(@Query("s") String name) {return meals;}
 }

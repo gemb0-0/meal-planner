@@ -135,6 +135,7 @@
         android:text="Sign in"
         android:textColor="@color/black"
         app:cornerRadius="12dp"
+        android:elevation="3dp"
         app:icon="@drawable/googleg_standard_color_18"
         app:iconPadding="10dp"
         app:iconTint="#00100D0D"

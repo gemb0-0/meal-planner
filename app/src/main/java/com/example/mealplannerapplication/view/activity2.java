@@ -1,7 +1,10 @@
 package com.example.mealplannerapplication.view;
 
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,12 +29,15 @@ public class activity2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.mealDetailView
-                    //||destination.getId()==R.id.searchDetailsView
+            if (destination.getId() == R.id.mealDetailView ||destination.getId()==R.id.searchDetailsView
+
             ) {
                 bottomNavigationView.setVisibility(View.GONE);
             } else {
@@ -39,6 +45,9 @@ public class activity2 extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
 }

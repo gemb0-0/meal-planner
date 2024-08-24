@@ -80,9 +80,13 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        if(categories == null)
+        if (categories != null) {
+            return categories.size();
+        } else if (ingredients != null) {
             return ingredients.size();
-        return categories.size();
+        } else {
+            return 0;
+        }
     }
 
 }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Pojos.Regions;
-import com.example.mealplannerapplication.model.RegionCallback;
 
 import java.util.List;
 

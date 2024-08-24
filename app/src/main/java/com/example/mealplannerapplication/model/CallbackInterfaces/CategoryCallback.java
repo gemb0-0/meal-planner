@@ -1,4 +1,4 @@
-package com.example.mealplannerapplication.model;
+package com.example.mealplannerapplication.model.CallbackInterfaces;
 
 import com.example.mealplannerapplication.model.Pojos.Category;
 

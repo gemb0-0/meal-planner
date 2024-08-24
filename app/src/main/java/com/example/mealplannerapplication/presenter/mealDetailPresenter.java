@@ -2,7 +2,7 @@ package com.example.mealplannerapplication.presenter;
 
 import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.MealDetailCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
 import com.example.mealplannerapplication.view.mealDetailViewInterface;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class mealDetailPresenter {
     }
 
     public void getMealDetail(String mealId) {
-        repo.fetchMealDetail(mealId, new MealDetailCallback() {
+        repo.fetchMealDetail(mealId, new MealCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
                 view.onSuccess(mealDetail);
@@ -35,7 +35,7 @@ public class mealDetailPresenter {
     }
 
     public void getFromDb(String mealId) {
-        repo.getFromDb(mealId, new MealDetailCallback() {
+        repo.getFromDb(mealId, new MealCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
                 view.onSuccess(mealDetail);

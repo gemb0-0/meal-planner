@@ -1,4 +1,4 @@
-package com.example.mealplannerapplication.view;
+package com.example.mealplannerapplication.view.MealOfTheDay;
 
 import com.example.mealplannerapplication.model.Pojos.Meal;
 

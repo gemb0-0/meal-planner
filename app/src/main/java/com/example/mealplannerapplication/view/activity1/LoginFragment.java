@@ -1,8 +1,10 @@
 package com.example.mealplannerapplication.view.activity1;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,6 +46,7 @@ public class LoginFragment extends Fragment implements loginInterface {
     loginPresenter presenter;
     Button loginButton, signUpButton, googlesigninbtn;
     TextView email, password;
+    TextView guest;
     private    GoogleSignInOptions   gso;
     private GoogleSignInClient signInClient;
     private static final int RC_SIGN_IN = 9001;
@@ -70,6 +73,7 @@ public class LoginFragment extends Fragment implements loginInterface {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -84,6 +88,7 @@ public class LoginFragment extends Fragment implements loginInterface {
         email = view.findViewById(R.id.mailV);
         password = view.findViewById(R.id.loginpass);
         presenter = new loginPresenter(LoginFragment.this);
+        guest = view.findViewById(R.id.guest_tv);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,18 +115,32 @@ public class LoginFragment extends Fragment implements loginInterface {
 
             }
         });
+
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("guest", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("guest", true);
+                editor.commit();
+                Intent intent = new Intent(getActivity(), activity2.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
     public void loginSuccess() {
-        Toast.makeText(getContext(), "Welcome Back", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.welcome_back, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), activity2.class);
         startActivity(intent);
     }
 
     @Override
     public void loginError() {
-        Toast.makeText(getContext(), "Login Failed, wrong email or password", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.login_failed_wrong_email_or_password, Toast.LENGTH_SHORT).show();
     }
 
     public boolean checkValidation() {
@@ -132,12 +151,12 @@ public class LoginFragment extends Fragment implements loginInterface {
         mail.setError(null);
         pass.setError(null);
         if (email.getText().toString().isEmpty()) {
-            mail.setError("Email is required");
+            mail.setError(getString(R.string.email_is_required));
             isValid = false;
         }
 
         if (password.getText().toString().isEmpty()) {
-            pass.setError("Password is required");
+            pass.setError(getString(R.string.password_is_required));
             isValid = false;
         }
 
@@ -157,7 +176,7 @@ public class LoginFragment extends Fragment implements loginInterface {
                 }
             } catch (ApiException e) {
                 // Google Sign-In failed
-                Toast.makeText(getContext(), "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.google_sign_in_failed) + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -170,17 +189,17 @@ public class LoginFragment extends Fragment implements loginInterface {
                      String name =   mAuth.getCurrentUser().getDisplayName();
                         Map<String, Object> user = new HashMap<>();
                         FirebaseFirestore  db = FirebaseFirestore.getInstance();
-                        user.put("name", name);
+                        user.put(String.valueOf(R.string.name), name);
                         String id = mAuth.getCurrentUser().getUid();
-                        db.collection("users").document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        db.collection(getString(R.string.users)).document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + id);
+                                Log.d(TAG, getString(R.string.documentsnapshot_added_with_id) + id);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
+                                Log.w(TAG, getString(R.string.error_adding_document), e);
                             }
                         });
                         loginSuccess();

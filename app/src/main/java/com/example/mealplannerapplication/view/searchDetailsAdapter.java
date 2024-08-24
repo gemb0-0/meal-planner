@@ -21,7 +21,7 @@ import java.util.List;
 public class searchDetailsAdapter extends RecyclerView.Adapter<searchDetailsAdapter.ViewHolder> {
 List<SingleRegionMeals> regionMeal;
     SearchDetailAdapterCallback callback;
-    public searchDetailsAdapter(SearchDetailAdapterCallback callback,List<SingleRegionMeals>mealDetail) {
+    public searchDetailsAdapter(SearchDetailAdapterCallback callback,  List <SingleRegionMeals> mealDetail) {
         this.regionMeal = mealDetail;
         this.callback = callback;
 
@@ -64,6 +64,8 @@ List<SingleRegionMeals> regionMeal;
     }
     @Override
     public int getItemCount() {
+        if(regionMeal==null)
+            return 0;
         return regionMeal.size();
     }
 

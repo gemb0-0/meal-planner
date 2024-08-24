@@ -18,7 +18,9 @@
         <activity
             android:name=".view.activity2"
             android:exported="false"
-            android:label="@string/title_activity_2" />
+            android:label="@string/title_activity_2"
+
+            />
         <activity
             android:name=".view.activity1.activity1Scr"
             android:exported="false" />

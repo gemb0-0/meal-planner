@@ -5,6 +5,13 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.mealplannerapplication.model.CallbackInterfaces.CategoryCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.FirebaseCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.IngredientsCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.RegionCallback;
+import com.example.mealplannerapplication.model.CallbackInterfaces.SingleRegionCallBack;
+import com.example.mealplannerapplication.model.CallbackInterfaces.TodaysPlanCallback;
 import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.db.DAO;
 import com.example.mealplannerapplication.model.db.MealLocalDataSaurce;
@@ -12,7 +19,11 @@ import com.example.mealplannerapplication.model.response.IngredientsResponseApi;
 import com.example.mealplannerapplication.model.response.RegionResponseApi;
 import com.example.mealplannerapplication.model.response.SingleRegionResponseApi;
 import com.example.mealplannerapplication.model.response.mealResponseApi;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +38,16 @@ public class Repository {
     private MealApi MealApi;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private DAO mealDao;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     private Repository(Context context) {
 
         MealApi = retrofit.getClient(BASE_URL).create(MealApi.class);
         mealDao = MealLocalDataSaurce.getInstance(context).mealDao();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
     }
 
     public static Repository getInstance(Context context) {
@@ -42,7 +58,7 @@ public class Repository {
     }
 
 
-    public void fetchMealoftheday(mealofthedayCallback callback) {
+    public void fetchMealoftheday(MealCallback callback) {
         Call<mealResponseApi> call = MealApi.getMealoftheday();
         call.enqueue(new Callback<mealResponseApi>() {
             @Override
@@ -61,13 +77,13 @@ public class Repository {
     }
 
 
-    public void fetchMealDetail(String mealId, MealDetailCallback callback) {
+    public void fetchMealDetail(String mealId, MealCallback callback) {
         Call<mealResponseApi> call = MealApi.getDetail(mealId);
         call.enqueue(new Callback<mealResponseApi>() {
             @Override
             public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
+                   // System.out.println("fffffffffffffffff "+response.body().getDetail(mealId).size());
                     callback.onSuccess(response.body().getDetail(mealId));
 
                 }
@@ -81,7 +97,7 @@ public class Repository {
     }
 
     public void saveToFav(String mealId) {
-        fetchMealDetail(mealId, new MealDetailCallback() {
+        fetchMealDetail(mealId, new MealCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
                 Meal m = mealDetail.get(0);
@@ -103,21 +119,21 @@ public class Repository {
         new Thread(() -> mealDao.delete(meal)).start();
     }
 
-    public void getFromDb(String mealId, MealDetailCallback mealDetailCallback) {
+    public void getFromDb(String mealId, MealCallback mealCallback) {
         new Thread(() -> {
             List<Meal> mealDetail = mealDao.getMealDetail(mealId);
             if (mealDetail.size() > 0) {
-                mealDetailCallback.onSuccess(mealDetail);
+                mealCallback.onSuccess(mealDetail);
                 //System.out.println("fffffffffffffffff"+mealDetail.get(0).getIdMeal());
                 // Toast.makeText((Context) mealDetailCallback, "Meal already in Favourites"+mealDetail.size(), Toast.LENGTH_SHORT).show();
             } else {
-                mealDetailCallback.onFailure(new Throwable("No data found"));
+                mealCallback.onFailure(new Throwable("No data found"));
             }
         }).start();
     }
 
     public void saveToPlan(String mealId, String checkedChipDay, String checkedChipMeal) {
-        fetchMealDetail(mealId, new MealDetailCallback() {
+        fetchMealDetail(mealId, new MealCallback() {
             @Override
             public void onSuccess(List<Meal> mealDetail) {
                 Meal m = mealDetail.get(0);
@@ -133,7 +149,6 @@ public class Repository {
             }
         });
     }
-
 
     public void getTodayMeals(String chipText, TodaysPlanCallback callback) {
 
@@ -239,8 +254,6 @@ public class Repository {
         });
     }
 
-
-
     public void getMealsByIngredient(String id, SingleRegionCallBack singleRegionCallBack) {
         Call<SingleRegionResponseApi> call = MealApi.getIngrediantMeal(id);
         call.enqueue(new Callback<SingleRegionResponseApi>() {
@@ -273,5 +286,72 @@ public class Repository {
                 singleRegionCallBack.onFailure(t);
             }
         });
+    }
+
+    public void SearchMealByName(String name, MealCallback mealCallback) {
+        Call<mealResponseApi> call = MealApi.getMealByName(name);
+        call.enqueue(new Callback<mealResponseApi>() {
+            @Override
+            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Meal> meals = response.body().getMealDetail();
+                    if(meals!=null) {
+                        Collections.sort(meals, new Comparator<Meal>() {
+                            @Override
+                            public int compare(Meal meal1, Meal meal2) {
+                                int index1 = meal1.getStrMeal().indexOf(name);
+                                int index2 = meal2.getStrMeal().indexOf(name);
+
+                                return Integer.compare(index1, index2);
+                            }
+                        });
+                    }
+                    mealCallback.onSuccess(meals);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<mealResponseApi> call, Throwable t) {
+                System.out.println("fffffffffffffffffg "+t.getMessage());
+                mealCallback.onFailure(t);
+            }
+        });
+    }
+
+    public void deleteDB() {
+        new Thread(() -> mealDao.deleteAll()).start();
+    }
+
+    public  void getAllData(FirebaseCallback callback) {
+        LiveData<List<Meal>>m = mealDao.getAllData();
+        uploadToFirebase(m, callback);
+
+    }
+
+    private void uploadToFirebase(LiveData<List<Meal>> m, FirebaseCallback callback) {
+        if(m !=null) {
+            m.observeForever(meals -> {
+                for (Meal meal : meals) {
+                    db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("Meals").document(meal.getIdMeal()).set(meal).addOnSuccessListener(aVoid -> {
+                        callback.onSuccess();
+                    }).addOnFailureListener(e -> {
+
+                    });
+                }
+            });
+        }
+    }
+
+    public void restoreData(FirebaseCallback callback) {
+
+        db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("Meals").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Meal> meals = queryDocumentSnapshots.toObjects(Meal.class);
+            for (Meal meal : meals) {
+                new Thread(() -> mealDao.insert(meal)).start();
+            }
+            callback.onSuccess();
+        });
+
+
     }
 }

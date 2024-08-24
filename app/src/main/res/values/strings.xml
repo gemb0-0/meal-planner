@@ -27,5 +27,17 @@
     <string name="category_title">Categories</string>
     <string name="Region">Region</string>
     <string name="seemore">See More</string>
+    <string name="meals">Meals</string>
+    <string name="login_failed_wrong_email_or_password">Login Failed, wrong email or password</string>
+    <string name="email_is_required">Email is required</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="password_is_required">Password is required</string>
+    <string name="google_sign_in_failed">"Google Sign-In failed: "</string>
+    <string name="users">users</string>
+    <string name="documentsnapshot_added_with_id">"DocumentSnapshot added with ID: "</string>
+    <string name="error_adding_document">Error adding document</string>
+    <string name="error">Error</string>
+    <string name="breakfastdb">BreakFast</string>
+    <string name="lunch">Lunch</string>
 
 </resources>

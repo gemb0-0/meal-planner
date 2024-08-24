@@ -1,10 +1,10 @@
 package com.example.mealplannerapplication.presenter;
 
+import com.example.mealplannerapplication.model.CallbackInterfaces.MealCallback;
 import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.model.TodaysPlanCallback;
-import com.example.mealplannerapplication.model.mealofthedayCallback;
-import com.example.mealplannerapplication.view.MealOfTheDayInterface;
+import com.example.mealplannerapplication.model.CallbackInterfaces.TodaysPlanCallback;
+import com.example.mealplannerapplication.view.MealOfTheDay.MealOfTheDayInterface;
 import com.example.mealplannerapplication.view.viewPlanInterface;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class mealOfTheDayPresenter {
     }
 
     public void getMealOfTheDay() {
-        repo.fetchMealoftheday(new mealofthedayCallback() {
+        repo.fetchMealoftheday(new MealCallback() {
             @Override
             public void onSuccess(List<Meal> mealoftheday) {
                 view.onSuccess(mealoftheday);

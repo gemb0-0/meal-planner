@@ -178,45 +178,41 @@ FloatingActionButton btn1,btn2,btn3;
     @Override
     public void onSuccess(List<Meal> mealDetail) {
         Meal detail = mealDetail.get(0);
-
-            mealName.setText(detail.getStrMeal());
-        mealInstructions.setText(detail.getStrInstructions());
-        List<String> ingredients = detail.getAllIngredients();
-        List<String> measurements = detail.getAllMeasures();
-        //glide dosne't save the img
         requireActivity().runOnUiThread(() -> {
-            Glide.with(requireContext())
-                    .load(detail.getStrMealThumb())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .apply(new RequestOptions())
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(mealImage);
-        });
-        if(DB==false){
-            fromNetwork(detail);
-        }
-        adapter = new ingrediantsAdapter(ingredients, measurements);
+            mealName.setText(detail.getStrMeal());
+            mealInstructions.setText(detail.getStrInstructions());
+            List<String> ingredients = detail.getAllIngredients();
+            List<String> measurements = detail.getAllMeasures();
+            //glide dosne't save the img
+            requireActivity().runOnUiThread(() -> {
+                Glide.with(requireContext())
+                        .load(detail.getStrMealThumb())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .apply(new RequestOptions())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .into(mealImage);
+            });
+            if (DB == false) {
+                fromNetwork(detail);
+            }
+            adapter = new ingrediantsAdapter(ingredients, measurements);
             mealIngredientsList.setAdapter(adapter);
 
-        //add icons later
-        if(detail.getStrArea()!=null && detail.getStrCategory()!=null){
-          //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
-            mealArea.setText("Nationality : "+ detail.getStrArea()+" \n");
-          //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24,0,0,0);
-            mealArea.append("Category : "+ detail.getStrCategory());
-        }
-
-        else if (detail.getStrArea()!=null){
-           // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
-            mealArea.setText("Nationality : "+ detail.getStrArea());
-        }
-
-        else if (detail.getStrCategory()!=null) {
-           // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24, 0, 0, 0);
-            mealArea.setText("Category : " + detail.getStrCategory());
-        }
-
+            //add icons later
+            if (detail.getStrArea() != null && detail.getStrCategory() != null) {
+                //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
+                mealArea.setText("Nationality : " + detail.getStrArea() + " \n");
+                //  mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24,0,0,0);
+                mealArea.append("Category : " + detail.getStrCategory());
+            } else if (detail.getStrArea() != null) {
+                // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_location_on_24,0,0,0);
+                mealArea.setText("Nationality : " + detail.getStrArea());
+            } else if (detail.getStrCategory() != null) {
+                // mealArea.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_category_24, 0, 0, 0);
+                mealArea.setText("Category : " + detail.getStrCategory());
+            }
+        });
     }
 
     @Override
@@ -224,6 +220,8 @@ FloatingActionButton btn1,btn2,btn3;
       //  Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
     }
     private void fromNetwork(Meal detail) {
+        if(detail.getStrYoutube()==null)
+            return;
         String videoId = detail.getStrYoutube().split("v=")[1];
         String videoHtml = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allowfullscreen></iframe>";
         webView.getSettings().setJavaScriptEnabled(true);

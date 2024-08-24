@@ -1,5 +1,6 @@
 package com.example.mealplannerapplication.view.activity1;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +26,10 @@ public class activity1Scr extends AppCompatActivity {
             return insets;
         });
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        SharedPreferences sharedPreferences = getSharedPreferences("guest", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("guest", false);
+        editor.commit();
 
     }
 }

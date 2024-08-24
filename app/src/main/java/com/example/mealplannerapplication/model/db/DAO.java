@@ -30,4 +30,11 @@
             @Delete
             void delete(Meal meal);
 
+            @Query ("DELETE FROM meal_table")
+            void deleteAll();
+
+
+            @Query("SELECT * FROM meal_table")
+            LiveData<List<Meal>> getAllData();
+
         }

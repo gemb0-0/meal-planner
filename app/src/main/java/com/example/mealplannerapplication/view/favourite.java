@@ -18,6 +18,7 @@ import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Pojos.Meal;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.favouritePresenter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -56,6 +57,8 @@ public class favourite extends Fragment implements FavouriteInterface, deleteFav
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+      //  BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+       // bottomNavigationView.setVisibility(View.GONE);
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.favouriteRecyler);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));

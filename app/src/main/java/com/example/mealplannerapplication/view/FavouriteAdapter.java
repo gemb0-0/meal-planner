@@ -45,15 +45,18 @@ List<Meal> mealDetail;
             Glide.with(holder.itemView.getContext()).load(mealDetail.get(position).getStrMealThumb()).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .apply(new RequestOptions()).centerCrop().placeholder(holder.mealImage.getDrawable()).into(holder.mealImage);
 
-            holder.deleteBtn.setOnClickListener(v ->
-                    deletedMeal.deleteFav(mealDetail.get(position))
-
-            );
-            holder.mealImage.setOnClickListener(v -> {
-                String mealId = mealDetail.get(position).getIdMeal();
-                favDetailView.getMealDetail(mealId);
-            });
-
+        holder.mealImage.setOnClickListener(v -> {
+            String mealId = mealDetail.get(position).getIdMeal();
+            favDetailView.getMealDetail(mealId);
+        });
+            if(deletedMeal!=null) {
+                holder.deleteBtn.setOnClickListener(v ->
+                        deletedMeal.deleteFav(mealDetail.get(position))
+                );
+            }
+            else {
+                holder.deleteBtn.setVisibility(View.GONE);
+            }
 
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,6 +72,8 @@ List<Meal> mealDetail;
     }
     @Override
     public int getItemCount() {
+        if(mealDetail==null)
+            return 0;
         return mealDetail.size();
     }
 

@@ -26,6 +26,9 @@ public interface MealApi {
     @GET("filter.php")
     Call<SingleRegionResponseApi> getCategoryMeal(@Query("i") String country);
 
+     @GET("search.php")
+    Call<mealResponseApi> getMealByName(@Query("s") String name);
+
     @GET("categories.php")
     Call<mealResponseApi> getCategories();
 

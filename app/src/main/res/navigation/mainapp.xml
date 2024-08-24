@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.mealplannerapplication.view.profile"
+        android:name="com.example.mealplannerapplication.view.UserProfile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/search"
@@ -25,10 +25,13 @@
         <action
             android:id="@+id/action_search_to_searchDetailsView"
             app:destination="@id/searchDetailsView" />
+        <action
+            android:id="@+id/action_search_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
     </fragment>
     <fragment
         android:id="@+id/mealoftheday"
-        android:name="com.example.mealplannerapplication.view.MealOfTheDay"
+        android:name="com.example.mealplannerapplication.view.MealOfTheDay.MealOfTheDay"
         tools:layout="@layout/fragment_mealoftheday" >
 
         <action
