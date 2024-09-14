@@ -5,51 +5,42 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.MealInfo;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.CategoryCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.FirebaseCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.IngredientsCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.AuthCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealCallback;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealInfoCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.RegionCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.SingleRegionCallBack;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.TodaysPlanCallback;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
 import com.example.mealplannerapplication.model.RemoteDataSource.MealApi;
-import com.example.mealplannerapplication.model.RemoteDataSource.retrofit;
-import com.example.mealplannerapplication.model.LocalDataSource.db.DAO;
-import com.example.mealplannerapplication.model.LocalDataSource.db.MealLocalDataSaurce;
-import com.example.mealplannerapplication.model.RemoteDataSource.response.IngredientsResponseApi;
-import com.example.mealplannerapplication.model.RemoteDataSource.response.RegionResponseApi;
-import com.example.mealplannerapplication.model.RemoteDataSource.response.SingleRegionResponseApi;
-import com.example.mealplannerapplication.model.RemoteDataSource.response.mealResponseApi;
+import com.example.mealplannerapplication.model.RemoteDataSource.Retrofit;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-
-public class Repository {
+public class Repository implements IRepository {
 
     private static Repository repository;
     private com.example.mealplannerapplication.model.RemoteDataSource.MealApi MealApi;
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-    private DAO mealDao;
+    //  private DAO mealDao;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    LocalDS LocalDS;
+    RemoteDs RemoteDs;
 
     private Repository(Context context) {
-
-        MealApi = retrofit.getClient(BASE_URL).create(MealApi.class);
-        mealDao = MealLocalDataSaurce.getInstance(context).mealDao();
+        MealApi = Retrofit.getClient(BASE_URL).create(MealApi.class);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        RemoteDs = new RemoteDs(this);
+        LocalDS = new LocalDS(context, this);
     }
 
     public static Repository getInstance(Context context) {
@@ -59,300 +50,140 @@ public class Repository {
         return repository;
     }
 
-
+    @Override
     public void fetchMealoftheday(MealCallback callback) {
-        Call<mealResponseApi> call = MealApi.getMealoftheday();
-        call.enqueue(new Callback<mealResponseApi>() {
-            @Override
-            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body().getMealDetail());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<mealResponseApi> call, Throwable t) {
-                callback.onFailure(t);
-            }
-        });
+        RemoteDs.fetchMealOfTheDay(callback);
     }
 
-
-    public void fetchMealDetail(String mealId, MealCallback callback) {
-        Call<mealResponseApi> call = MealApi.getDetail(mealId);
-        call.enqueue(new Callback<mealResponseApi>() {
-            @Override
-            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                   // System.out.println("fffffffffffffffff "+response.body().getDetail(mealId).size());
-                    callback.onSuccess(response.body().getDetail(mealId));
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<mealResponseApi> call, Throwable t) {
-                callback.onFailure(t);
-            }
-        });
-    }
-
-    public void saveToFav(String mealId) {
-        fetchMealDetail(mealId, new MealCallback() {
-            @Override
-            public void onSuccess(List<Meal> mealDetail) {
-                Meal m = mealDetail.get(0);
-                new Thread(() -> mealDao.insert(m)).start();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    public LiveData<List<Meal>> fetchFavourite() {
-        return mealDao.getAllFavouriteMeals();
-    }
-
-    public void deleteFav(Meal meal) {
-        new Thread(() -> mealDao.delete(meal)).start();
-    }
-
-    public void getFromDb(String mealId, MealCallback mealCallback) {
-        new Thread(() -> {
-            List<Meal> mealDetail = mealDao.getMealDetail(mealId);
-            if (mealDetail.size() > 0) {
-                mealCallback.onSuccess(mealDetail);
-                //System.out.println("fffffffffffffffff"+mealDetail.get(0).getIdMeal());
-                // Toast.makeText((Context) mealDetailCallback, "Meal already in Favourites"+mealDetail.size(), Toast.LENGTH_SHORT).show();
-            } else {
-                mealCallback.onFailure(new Throwable("No data found"));
-            }
-        }).start();
-    }
-
-    public void saveToPlan(String mealId, String checkedChipDay, String checkedChipMeal) {
-        fetchMealDetail(mealId, new MealCallback() {
-            @Override
-            public void onSuccess(List<Meal> mealDetail) {
-                Meal m = mealDetail.get(0);
-                m.setInPlan(true);
-                m.setWeekDay(checkedChipDay);
-                m.setMeal(checkedChipMeal);
-                new Thread(() -> mealDao.insert(m)).start();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    public void getTodayMeals(String chipText, TodaysPlanCallback callback) {
-
-
-        new Thread(() -> {
-            List<Meal> meals = mealDao.getTodayMeals(chipText);
-            if (meals != null && !meals.isEmpty()) {
-                 callback.onSuccess(filterMeals(meals));
-                //  callback.onSuccess(filterMeals(meals));
-
-            } else {
-                callback.onFailure(new Throwable("No meals found for today"));
-            }
-        }).start();
-
-
-    }
-
-    private Map<String, Meal> filterMeals(List<Meal> meals) {
-        Map<String, Meal> mealMap = new HashMap<>();
-        Set<String> mealTypes = Set.of("BreakFast", "Launch", "Dinner");
-
-        for (Meal meal : meals) {
-            String mealType = meal.getMeal();
-            if (mealTypes.contains(mealType)) {
-                mealMap.put(mealType, meal);
-            }
-        }
-        return mealMap;
-    }
-
+    @Override
     public void getCategories(CategoryCallback callback) {
-        Call<mealResponseApi> call = MealApi.getCategories();
-        call.enqueue(new Callback<mealResponseApi>() {
-            @Override
-            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                  callback.onSuccess(response.body().getCategories());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<mealResponseApi> call, Throwable t) {
-
-                callback.onFailure(t);
-
-            }
-        });
+        RemoteDs.getCategories(callback);
     }
 
+    @Override
     public void getRegions(RegionCallback RegionCallback) {
-        Call<RegionResponseApi> call = MealApi.getRegions();
-        call.enqueue(new Callback<RegionResponseApi>() {
-            @Override
-            public void onResponse(Call<RegionResponseApi> call, retrofit2.Response<RegionResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    RegionCallback.onSuccess(
-                            response.body().getRegions()
-                    );
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegionResponseApi> call, Throwable t) {
-                RegionCallback.onFailure(t);
-            }
-        });
+        RemoteDs.getRegions(RegionCallback);
     }
 
+    @Override
     public void getIngredients(IngredientsCallback ingredientsCallback) {
-        Call<IngredientsResponseApi> call = MealApi.getIngredients();
-        call.enqueue(new Callback<IngredientsResponseApi>() {
-            @Override
-            public void onResponse(Call<IngredientsResponseApi> call, retrofit2.Response<IngredientsResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ingredientsCallback.onSuccess(response.body().getIngredients());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<IngredientsResponseApi> call, Throwable t) {
-                ingredientsCallback.onFailure(t);
-            }
-        });
+        RemoteDs.getIngredients(ingredientsCallback);
     }
 
+    @Override
     public void getMealsByRegion(String regionName, SingleRegionCallBack singleRegionCallBack) {
-        Call<SingleRegionResponseApi> call = MealApi.getCountryMeals(regionName);
-        call.enqueue(new Callback<SingleRegionResponseApi>() {
-            @Override
-            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(regionName));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
-                singleRegionCallBack.onFailure(t);
-            }
-        });
+        RemoteDs.getMealsByRegion(regionName, singleRegionCallBack);
     }
 
+    @Override
     public void getMealsByIngredient(String id, SingleRegionCallBack singleRegionCallBack) {
-        Call<SingleRegionResponseApi> call = MealApi.getIngrediantMeal(id);
-        call.enqueue(new Callback<SingleRegionResponseApi>() {
-            @Override
-            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(id));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
-                singleRegionCallBack.onFailure(t);
-            }
-        });
+        RemoteDs.getMealsByIngredient(id, singleRegionCallBack);
     }
 
+    @Override
     public void getMealsByCategory(String id, SingleRegionCallBack singleRegionCallBack) {
-        Call<SingleRegionResponseApi> call = MealApi.getCategoryMeal(id);
-        call.enqueue(new Callback<SingleRegionResponseApi>() {
-            @Override
-            public void onResponse(Call<SingleRegionResponseApi> call, retrofit2.Response<SingleRegionResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    singleRegionCallBack.onSuccess(response.body().getCountryMeals(id));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleRegionResponseApi> call, Throwable t) {
-                singleRegionCallBack.onFailure(t);
-            }
-        });
+        RemoteDs.getMealsByCategory(id, singleRegionCallBack);
     }
 
-    public void SearchMealByName(String name, MealCallback mealCallback) {
-        Call<mealResponseApi> call = MealApi.getMealByName(name);
-        call.enqueue(new Callback<mealResponseApi>() {
-            @Override
-            public void onResponse(Call<mealResponseApi> call, retrofit2.Response<mealResponseApi> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Meal> meals = response.body().getMealDetail();
-                    if(meals!=null) {
-                        Collections.sort(meals, new Comparator<Meal>() {
-                            @Override
-                            public int compare(Meal meal1, Meal meal2) {
-                                int index1 = meal1.getStrMeal().indexOf(name);
-                                int index2 = meal2.getStrMeal().indexOf(name);
-
-                                return Integer.compare(index1, index2);
-                            }
-                        });
-                    }
-                    mealCallback.onSuccess(meals);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<mealResponseApi> call, Throwable t) {
-                System.out.println("fffffffffffffffffg "+t.getMessage());
-                mealCallback.onFailure(t);
-            }
-        });
+    @Override
+    public void SearchMealByName(String name, MealInfoCallback callback) {
+        RemoteDs.SearchMealByName(name, callback);
     }
 
+    @Override
     public void deleteDB() {
-        new Thread(() -> mealDao.deleteAll()).start();
+        LocalDS.deleteAll();
     }
 
-    public  void getAllData(FirebaseCallback callback) {
-        LiveData<List<Meal>>m = mealDao.getAllData();
-        uploadToFirebase(m, callback);
+    @Override
+    public void getAllData(FirebaseCallback callback) {
+        LocalDS.getAllData(callback);
 
     }
 
-    private void uploadToFirebase(LiveData<List<Meal>> m, FirebaseCallback callback) {
-        if(m !=null) {
-            m.observeForever(meals -> {
-                for (Meal meal : meals) {
-                    db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("Meals").document(meal.getIdMeal()).set(meal).addOnSuccessListener(aVoid -> {
-                        callback.onSuccess();
-                    }).addOnFailureListener(e -> {
-
-                    });
-                }
-            });
-        }
-    }
-
+    @Override
     public void restoreData(FirebaseCallback callback) {
+        RemoteDs.restoreData(callback);
+    }
 
-        db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("Meals").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            List<Meal> meals = queryDocumentSnapshots.toObjects(Meal.class);
-            for (Meal meal : meals) {
-                new Thread(() -> mealDao.insert(meal)).start();
-            }
-            callback.onSuccess();
-        });
+    @Override
+    public void getTodayMeals(String chipText, TodaysPlanCallback callback) {
+        LocalDS.getTodayMeals(chipText, callback);
+    }
 
 
+    @Override
+    public void saveFavToDb(String mealId) {
+        LocalDS.saveFavMeal(mealId);
+    }
+
+    @Override
+    public LiveData<List<MealInfo>> fetchFavourites() {
+        return LocalDS.getFavorites();
+    }
+
+    @Override
+    public void getMealDetailDb(String mealId, MealCallback callback) {
+        LocalDS.getMealDetail(mealId, callback);
+
+    }
+
+    @Override
+    public void getMealDetail(String mealId, MealCallback callback) {
+        RemoteDs.getMeal(mealId, callback);
+    }
+
+    @Override
+    public void deleteFav(MealInfo meal) {
+        LocalDS.deleteFav(meal);
+    }
+
+    @Override
+    public void saveToPlan(String mealId, String checkedChipDay, String checkedChipMeal) {
+
+        LocalDS.saveMealToPlan(mealId, checkedChipDay, checkedChipMeal);
+    }
+
+    @Override
+    public void signInWithGoogle(GoogleSignInAccount account, AuthCallback authCallback) {
+        RemoteDs.signInWithGoogle(account, authCallback);
+    }
+
+    @Override
+    public void signup(String name, String email, String password, AuthCallback authCallback) {
+        RemoteDs.signup(name, email, password, authCallback);
+    }
+
+    @Override
+    public void login(String email, String password, AuthCallback authCallback) {
+        RemoteDs.login(email, password, authCallback);
+    }
+
+    public List<String> getProfileData() {
+        return LocalDS.getProfileData();
+    }
+
+    @Override
+    public void saveUserDataLocal(String name, String email) {
+        LocalDS.saveUserInSharedPref(name, email);
+    }
+
+    @Override
+    public void dataFromFirebase(FirebaseCallback callback, List<Meal> meals) {
+        LocalDS.deserializeData(callback, meals);
+    }
+
+    @Override
+    public void fetchDataFromRemote(String mealId, MealCallback callback) {
+        RemoteDs.getMeal(mealId, callback);
+    }
+
+    @Override
+    public void backupData(List<Meal> data, FirebaseCallback callback) {
+        RemoteDs.backupData(data, callback);
+    }
+
+    public void deleteMealFromPlan(String idMeal) {
+        LocalDS.deleteMealFromPlan(idMeal);
     }
 }
