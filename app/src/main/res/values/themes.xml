@@ -13,8 +13,8 @@
     <style name="Theme.MealPlannerApplication" parent="Base.Theme.MealPlannerApplication" />
 
     <style name="popupMenuAni" >
-        <item name="android:windowEnterAnimation">@anim/slide_in</item>
-        <item name="android:windowExitAnimation">@anim/slide_out</item>
+        <item name="android:windowEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_enter_anim</item>
 
     </style>
 

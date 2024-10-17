@@ -96,14 +96,14 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BreakFast" />
+            android:text="Breakfast" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/launchChip"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Launch" />
+            android:text="Lunch" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/dinnerChip"

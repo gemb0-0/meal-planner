@@ -208,12 +208,29 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/deleteBreakfast"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="3dp"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:outlineAmbientShadowColor="#004B88A2"
+                    android:outlineSpotShadowColor="#004B88A2"
+                    android:src="@drawable/baseline_cancel_24"
+                    app:backgroundTint="#004B88A2"
+                    app:elevation="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/imgBreakfast"
+                    app:layout_constraintTop_toTopOf="@+id/imgBreakfast"
+                    app:rippleColor="@color/secondary_varient"
+                    app:tint="#BF4B88A2" />
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgBreakfast"
                     android:layout_width="120dp"
                     android:layout_height="100dp"
 
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="4dp"
                     android:src="@color/background"
                     app:layout_constraintEnd_toStartOf="@+id/imgLunch"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -235,6 +252,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtLunch"
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/deleteLunch"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="3dp"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:outlineAmbientShadowColor="#004B88A2"
+                    android:outlineSpotShadowColor="#004B88A2"
+                    android:src="@drawable/baseline_cancel_24"
+                    app:backgroundTint="#004B88A2"
+                    app:elevation="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/imgLunch"
+                    app:layout_constraintTop_toTopOf="@+id/imgLunch"
+                    app:rippleColor="@color/secondary_varient"
+                    app:tint="#BF4B88A2" />
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgDinner"
                     android:layout_width="120dp"
@@ -246,6 +280,23 @@
                     app:layout_constraintStart_toEndOf="@+id/imgLunch"
                     app:layout_constraintTop_toBottomOf="@+id/txtDinner"
                     app:shapeAppearanceOverlay="@style/roundedImageViewSmall" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/deleteDinner"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="3dp"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:outlineAmbientShadowColor="#004B88A2"
+                    android:outlineSpotShadowColor="#004B88A2"
+                    android:src="@drawable/baseline_cancel_24"
+                    app:backgroundTint="#004B88A2"
+                    app:elevation="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/imgDinner"
+                    app:layout_constraintTop_toTopOf="@+id/imgDinner"
+                    app:rippleColor="@color/secondary_varient"
+                    app:tint="#BF4B88A2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

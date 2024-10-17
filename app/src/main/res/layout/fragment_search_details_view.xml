@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_goneMarginTop="7dp"
-    tools:context=".view.activity2.Favourite.favourite">
+    tools:context=".view.activity2.Favourite.Favourite">
 
 
 

@@ -2,9 +2,10 @@ package com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterf
 
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TodaysPlanCallback {
-    void onSuccess(Map<String, Meal> mealoftheday);
+    void onSuccess(List<Meal> todaysMeals);
     void onFailure( Throwable t);
 }

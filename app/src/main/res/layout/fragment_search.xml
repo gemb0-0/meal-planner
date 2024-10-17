@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity2.Search.search">
+    android:orientation="vertical"
+    tools:context=".view.activity2.Search.Search">
+
+    <SearchView
+        android:id="@+id/searchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:layout_marginTop="30dp"
+        android:padding="5dp" />
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,21 +28,13 @@
             android:orientation="vertical">
 
 
-            <SearchView
-                android:id="@+id/searchBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginTop="5dp"
-                />
-
             <LinearLayout
                 android:id="@+id/mealLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="invisible"
-                tools:visibility="invisible">
+                android:visibility="gone"
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/mealTextview"
@@ -63,8 +61,9 @@
                 android:id="@+id/MealrecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                tools:visibility="invisible" />
+                android:visibility="gone"
+                tools:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -94,8 +93,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +160,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:padding="5dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
         </LinearLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

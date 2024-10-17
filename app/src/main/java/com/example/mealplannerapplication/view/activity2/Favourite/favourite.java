@@ -2,7 +2,10 @@ package com.example.mealplannerapplication.view.activity2.Favourite;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,29 +18,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplannerapplication.R;
-import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.MealInfo;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.presenter.favouritePresenter;
-import com.example.mealplannerapplication.view.activity2.adapters.FavouriteAdapter;
+import com.example.mealplannerapplication.presenter.FavouritePresenter;
+import com.example.mealplannerapplication.view.activity1.activity1;
+import com.example.mealplannerapplication.view.activity2.Adapters.FavouriteAdapter;
 
 import java.util.List;
 
 
-public class favourite extends Fragment implements FavouriteInterface, deleteFavCallback,favDetailView{
+public class Favourite extends Fragment implements FavouriteInterface, DeleteFavCallback, FavouriteDetailView {
 
-  RecyclerView recyclerView;
-    favouritePresenter presenter;
+    RecyclerView recyclerView;
+    FavouritePresenter presenter;
     FavouriteAdapter adapter;
+    boolean guest;
+    public Favourite() {}
 
-    public favourite() {
-        // Required empty public constructor
-    }
-
-    public static favourite newInstance(String param1, String param2) {
-        favourite fragment = new favourite();
+    public static Favourite newInstance(String param1, String param2) {
+        Favourite fragment = new Favourite();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -46,8 +50,15 @@ public class favourite extends Fragment implements FavouriteInterface, deleteFav
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("guest", MODE_PRIVATE);
+         guest = sharedPreferences.getBoolean("guest", false);
+        if(guest){
+            Toast.makeText(getContext(),"Login to view Favourites", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), activity1.class);
+            startActivity(intent);
+            requireActivity().finish();
         }
+
     }
 
     @Override
@@ -58,40 +69,63 @@ public class favourite extends Fragment implements FavouriteInterface, deleteFav
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-      //  BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-       // bottomNavigationView.setVisibility(View.GONE);
+        //  BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+        // bottomNavigationView.setVisibility(View.GONE);
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.favouriteRecyler);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        presenter= new favouritePresenter(Repository.getInstance(getContext()),this);
-       presenter.retriveFavourite();
+        presenter = new FavouritePresenter(Repository.getInstance(getContext()), this);
+        presenter.retrieveFavourites();
     }
 
-    @Override
-    public void showFavProducts(List<Meal> mealDetail) {
-         adapter = new FavouriteAdapter(mealDetail,this,this);
-
-        recyclerView.setAdapter(adapter);
-    }
 
     @Override
     public void showErrMsg() {
-      //  if(!guest)
+        if (!guest)
             Toast.makeText(getContext(), R.string.no_fav, Toast.LENGTH_SHORT).show();
-     //   else
-        //Toast.makeText(getContext(), R.string.no_fav_guest, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getContext(), R.string.no_fav_guest, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
-    public void deleteFav(Meal meal) {
-        presenter.deleteFav(meal);
-        adapter.notifyDataSetChanged();
+    public void showFavProducts(List<MealInfo> meals) {
+        adapter = new FavouriteAdapter(meals, this, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void deleteFav(MealInfo mealInfo) {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.alert, null);
+
+        TextView text = alertLayout.findViewById(R.id.alertTitle);
+        Button okBtn = alertLayout.findViewById(R.id.okBtn);
+        Button cancelBtn = alertLayout.findViewById(R.id.cancelBtn);
+        text.setText("Remove favourite?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(alertLayout);
+        builder.setCancelable(true);
+
+        AlertDialog dialog = builder.create();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        okBtn.setOnClickListener(v -> {
+            presenter.deleteFav(mealInfo);
+            adapter.notifyDataSetChanged();
+            dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     @Override
     public void getMealDetail(String mealId) {
-       favouriteDirections.ActionFavouriteToMealDetailView action = favouriteDirections.actionFavouriteToMealDetailView(mealId,true );
+        FavouriteDirections.ActionFavouriteToMealDetailView action = FavouriteDirections.actionFavouriteToMealDetailView(mealId, true);
         Navigation.findNavController(getView()).navigate(action);
 
     }

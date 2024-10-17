@@ -18,17 +18,18 @@ import android.widget.Toast;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.SingleRegionMeals;
 import com.example.mealplannerapplication.model.Repository;
-import com.example.mealplannerapplication.presenter.searchDetailPresenter;
-import com.example.mealplannerapplication.view.activity2.adapters.SearchDetailAdapterCallback;
-import com.example.mealplannerapplication.view.activity2.adapters.searchDetailsAdapter;
+import com.example.mealplannerapplication.presenter.SearchDetailsPresenter;
+import com.example.mealplannerapplication.view.activity2.Adapters.SearchDetailAdapterCallback;
+import com.example.mealplannerapplication.view.activity2.Adapters.SearchDetailsAdapter;
 
 import java.util.List;
 
 
-public class SearchDetailsView extends Fragment implements SearchDetailsInterface , SearchDetailAdapterCallback {
+public class SearchDetailsView extends Fragment implements SearchDetailsInterface, SearchDetailAdapterCallback {
     RecyclerView recyclerView;
-    String id,type;
-    searchDetailPresenter presenter;
+    String id, type;
+    SearchDetailsPresenter presenter;
+
     public SearchDetailsView() {
     }
 
@@ -45,9 +46,8 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        id =getArguments().getString("id");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        id = getArguments().getString("id");
         type = getArguments().getString("type");
         //if there's a problem with the above use this one
         // id = SearchDetailViewArgs.fromBundle(getArguments()).getId();
@@ -62,20 +62,20 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
         recyclerView = view.findViewById(R.id.searchDetailRecylerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
 
-        presenter = new searchDetailPresenter(Repository.getInstance(getContext()),this);
-
-       if(type.equals("r"))
-        presenter.getMealsByRegion(id);
-       else if (type.equals("i"))
-           presenter.getMealsByIngredient(id);
-       else if (type.equals("c"))
-           presenter.getMealsByCategory(id);
+        presenter = new SearchDetailsPresenter(Repository.getInstance(getContext()), this);
+        //from bundle r for region i for ingredient c for category
+        if (type.equals("r"))
+            presenter.getMealsByRegion(id);
+        else if (type.equals("i"))
+            presenter.getMealsByIngredient(id);
+        else if (type.equals("c"))
+            presenter.getMealsByCategory(id);
 
     }
 
     @Override
     public void showData(List<SingleRegionMeals> meals) {
-        searchDetailsAdapter adapter = new searchDetailsAdapter(this,meals);
+        SearchDetailsAdapter adapter = new SearchDetailsAdapter(this, meals);
         recyclerView.setAdapter(adapter);
 
     }
@@ -87,10 +87,8 @@ public class SearchDetailsView extends Fragment implements SearchDetailsInterfac
 
     @Override
     public void onMealClicked(String mealId) {
-        SearchDetailsViewDirections.ActionSearchDetailsViewToMealDetailView action = SearchDetailsViewDirections.actionSearchDetailsViewToMealDetailView(mealId,false);
+        SearchDetailsViewDirections.ActionSearchDetailsViewToMealDetailView action = SearchDetailsViewDirections.actionSearchDetailsViewToMealDetailView(mealId, false);
         Navigation.findNavController(getView()).navigate(action);
-
-
 
 
     }

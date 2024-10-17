@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -35,16 +36,16 @@ public class activity2 extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.mealDetailView ||destination.getId()==R.id.searchDetailsView
 
-            ) {
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.mealDetailView || destination.getId() == R.id.searchDetailsView) {
                 bottomNavigationView.setVisibility(View.GONE);
             } else {
                 bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
-            if(destination.getId()==R.id.profile&&sharedPrefData()){
+            if (destination.getId() == R.id.profile && sharedPrefData()) {
                 Intent intent = new Intent(activity2.this, activity1.class);
                 startActivity(intent);
                 finish();
@@ -53,10 +54,10 @@ public class activity2 extends AppCompatActivity {
         });
 
 
-
     }
+
     private Boolean sharedPrefData() {
         SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(R.string.guest), MODE_PRIVATE);
-       return sharedPreferences.getBoolean(getString(R.string.guest), false);
+        return sharedPreferences.getBoolean(getString(R.string.guest), false);
     }
 }

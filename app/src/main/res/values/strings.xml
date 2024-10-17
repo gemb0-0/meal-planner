@@ -15,14 +15,14 @@
     <string name="required">Required field</string>
     <string name="password">Password</string>
     <string name="meal">Meal of the day</string>
-    <string name="logout">Log out</string>
+    <string name="logout">Logout</string>
     <string name="breakfast">Breakfast</string>
     <string name="launch">Launch</string>
     <string name="dinner">Dinner</string>
     <string name="ingredients">"Ingredients "</string>
     <string name="intstructions">Instructions</string>
     <string name="popupTxt">Save meal to plan</string>
-    <string name="backup">BackUp</string>
+    <string name="backup">Backup</string>
     <string name="restore">Restore</string>
     <string name="category_title">Categories</string>
     <string name="Region">Region</string>
@@ -44,10 +44,12 @@
     <string name="no_meals_found_err">No meals found</string>
     <string name="please_select_a_day_and_a_meal_type">Please select a day and a meal type</string>
     <string name="mealsaved">Meal Saved</string>
-    <string name="nationality">Nationality : </string>
-    <string name="category">Category : </string>
+    <string name="nationality"> Nationality :  </string>
+    <string name="category"> Category :  </string>
     <string name="no_fav">No Favourites Found</string>
     <string name="no_fav_guest">Login to use the app</string>
     <string name="sign_up_or_sign_in_to_view_your_profile">Sign up or sign in to view your profile</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

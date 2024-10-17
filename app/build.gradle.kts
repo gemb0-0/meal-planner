@@ -69,7 +69,8 @@ dependencies {
     //circle image view
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //lottie
-    implementation ("com.airbnb.android:lottie:3.4.0")
+    implementation ("com.airbnb.android:lottie:4.0.0")
+
 
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))

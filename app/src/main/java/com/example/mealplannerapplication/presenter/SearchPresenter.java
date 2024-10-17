@@ -1,11 +1,13 @@
 package com.example.mealplannerapplication.presenter;
 
+import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.MealInfo;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.CategoryCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.IngredientsCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealCallback;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Ingredients;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Meal;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Regions;
+import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.MealInfoCallback;
 import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfaces.RegionCallback;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.model.LocalDataSource.db.Pojos.Category;
@@ -63,23 +65,36 @@ public class SearchPresenter {
 
             }
         });
-    view.SearchData(motherList);
+        view.SearchData(motherList);
 
     }
 
 
     public void searchMealName(String newText) {
-        repo.SearchMealByName(newText,new MealCallback() {
-            @Override
-            public void onSuccess(List<Meal> mealDetail) {
-                view.showMealData(mealDetail);
-            }
+        repo.SearchMealByName(newText, new MealInfoCallback() {
+                    @Override
+                    public void onSuccess(List<MealInfo> mealInfo) {
+                        view.showMealData(mealInfo);
+                    }
 
-            @Override
-            public void onFailure(Throwable t) {
-                view.onError(t.getMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Throwable t) {
+                        view.onError(t.getMessage());
+                    }
+                });
+
+
+//                new MealCallback() {
+//            @Override
+//            public void onSuccess(List<Meal> mealDetail) {
+//                view.showMealData(mealDetail);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                view.onError(t.getMessage());
+//            }
+//        });
 
     }
 }

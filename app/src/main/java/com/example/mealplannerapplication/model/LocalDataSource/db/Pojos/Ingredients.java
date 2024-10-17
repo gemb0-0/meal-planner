@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredients {
 
-        private int idIngredient;
-        private String strIngredient;
-        private String strDescription;
-        private String strType;
+    private int idIngredient;
+    private String strIngredient;
+    private String strDescription;
+    private String strType;
 
     public Ingredients(int idIngredient, String strIngredient, String strDescription, String strType) {
         this.idIngredient = idIngredient;

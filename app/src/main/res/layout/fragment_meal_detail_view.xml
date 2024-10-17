@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity2.MealDetailView.mealDetailView">
+    tools:context=".view.activity2.MealDetailView.MealDetailView">
 
     <View
         android:id="@+id/view"
@@ -56,9 +56,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/originCountrytxtV"
+                android:id="@+id/CountrytxtV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_location_on_24"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:id="@+id/categorytxtV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_category_24"
                 android:padding="10dp"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -79,7 +90,6 @@
                 android:layout_height="wrap_content"
 
                 />
-
 
             <TextView
 

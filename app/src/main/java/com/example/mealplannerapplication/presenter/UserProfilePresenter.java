@@ -4,6 +4,8 @@ import com.example.mealplannerapplication.model.RemoteDataSource.CallbackInterfa
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.view.activity2.Profile.UserProfileInterface;
 
+import java.util.List;
+
 public class UserProfilePresenter {
     Repository repo;
     UserProfileInterface view;
@@ -29,10 +31,9 @@ public class UserProfilePresenter {
 
             @Override
             public void onFailure(Throwable t) {
-
+           // view.Error();
             }
         });
-
     }
 
     public void restore() {
@@ -44,8 +45,13 @@ public class UserProfilePresenter {
 
             @Override
             public void onFailure(Throwable t) {
-
+              //  view.Error();
             }
         });
+    }
+
+    public void getUserData() {
+        List<String> data = repo.getProfileData();
+        view.setUserData(data);
     }
 }

@@ -11,6 +11,7 @@ public class SingleRegionMeals {
         this.strMealThumb = strMealThumb;
         this.idMeal = idMeal;
     }
+
     // Getters and Setters
     public String getStrMeal() {
         return strMeal;

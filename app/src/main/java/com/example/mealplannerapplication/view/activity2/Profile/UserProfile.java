@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.mealplannerapplication.R;
 import com.example.mealplannerapplication.model.Repository;
 import com.example.mealplannerapplication.presenter.UserProfilePresenter;
@@ -28,16 +29,16 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.List;
+
 
 public class UserProfile extends Fragment implements UserProfileInterface {
-    Button SignoutBtn,backupBtn,restoreBtn;
-    TextView email,name;
+    Button SignoutBtn, backupBtn, restoreBtn;
+    TextView email, name;
     UserProfilePresenter userProfilePresenter;
-
-    public UserProfile() {
-        // Required empty public constructor
-    }
-
+    LottieAnimationView lottieAnimationView;
+    View profileView;
+    public UserProfile() {}
 
     public static UserProfile newInstance(String param1, String param2) {
         UserProfile fragment = new UserProfile();
@@ -50,14 +51,24 @@ public class UserProfile extends Fragment implements UserProfileInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("guest", MODE_PRIVATE);
+        boolean guest = sharedPreferences.getBoolean("guest", false);
+        if(guest){
+            Toast.makeText(getContext(), R.string.sign_up_or_sign_in_to_view_your_profile, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), activity1.class);
+            startActivity(intent);
+            requireActivity().finish();
+        }
+
+
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
 
     @Override
@@ -68,39 +79,36 @@ public class UserProfile extends Fragment implements UserProfileInterface {
         restoreBtn = view.findViewById(R.id.restoreBtn);
         email = view.findViewById(R.id.profile_mail);
         name = view.findViewById(R.id.nameVV);
-        userProfilePresenter = new UserProfilePresenter(Repository.getInstance(getContext()),this);
-
+        lottieAnimationView = view.findViewById(R.id.animation_view);
+        profileView = view.findViewById(R.id.viewpof);
+        userProfilePresenter = new UserProfilePresenter(Repository.getInstance(getContext()), this);
 
 
 //            Toast.makeText(getContext(), R.string.sign_up_or_sign_in_to_view_your_profile, Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getActivity(), activity1.class);
 //            startActivity(intent);
-
-            FirebaseUserData();
-
-
-
-
-        backupBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              userProfilePresenter.backup();
-          }
+        userProfilePresenter.getUserData();
+        backupBtn.setOnClickListener(v -> {
+            profileView.setVisibility(View.VISIBLE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+            lottieAnimationView.playAnimation();
+            userProfilePresenter.backup();
         });
-      restoreBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              userProfilePresenter.restore();
-          }
+        restoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profileView.setVisibility(View.VISIBLE);
+                lottieAnimationView.setVisibility(View.VISIBLE);
+                lottieAnimationView.playAnimation();
+                userProfilePresenter.restore();
+            }
         });
-
 
 
         SignoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                  FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), activity1.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -113,39 +121,41 @@ public class UserProfile extends Fragment implements UserProfileInterface {
         });
 
     }
-
-    private void FirebaseUserData() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String id = auth.getCurrentUser().getUid();
-        DocumentReference docRef = db.collection("users").document(id);
-        docRef.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value != null) {
-                    name.setText(value.getString("name"));
-                    email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                }
-
-            }
-        });
-    }
-
-
-
+//have to fix the animation and callback later
 
     @Override
     public void backupSuccess() {
-     //   Toast.makeText(getContext(), "Backup Success", Toast.LENGTH_SHORT).show();
+       getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                profileView.setVisibility(View.INVISIBLE);
+                lottieAnimationView.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Backup Success", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        profileView.setVisibility(View.INVISIBLE);
+//        lottieAnimationView.setVisibility(View.GONE);
+//        Toast.makeText(getContext(), "Backup Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void backupError() {
-    //Toast.makeText(getContext(), "Backup Error", Toast.LENGTH_SHORT).show();
+    public void Error() {
+        profileView.setVisibility(View.INVISIBLE);
+        lottieAnimationView.setVisibility(View.GONE);
+        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void restoreSuccess() {
-//Toast.makeText(getContext(), "Restore Success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Restore Success", Toast.LENGTH_SHORT).show();
+        profileView.setVisibility(View.INVISIBLE);
+        lottieAnimationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void setUserData(List<String> data) {
+        name.setText(data.get(0));
+        email.setText(data.get(1));
     }
 }

@@ -30,7 +30,10 @@
         app:itemRippleColor="@color/primary"
         android:outlineAmbientShadowColor="@color/primary_varient"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_enter_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_enter_anim"
         android:backgroundTint="@color/primary"
         />
 
