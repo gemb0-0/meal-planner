@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainapp"
+    app:startDestination="@id/mealoftheday">
+
+    <fragment
+        android:id="@+id/favourite"
+        android:name="com.example.mealplannerapplication.view.activity2.Favourite.Favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_enter_anim"
+            android:id="@+id/action_favourite_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.mealplannerapplication.view.activity2.Profile.UserProfile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.mealplannerapplication.view.activity2.Search.Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_enter_anim"
+            android:id="@+id/action_search_to_searchDetailsView"
+            app:destination="@id/searchDetailsView" />
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_enter_anim"
+            android:id="@+id/action_search_to_mealDetailView"
+            app:destination="@id/mealDetailView" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealoftheday"
+        android:name="com.example.mealplannerapplication.view.activity2.MealOfTheDay.MealOfTheDay"
+        tools:layout="@layout/fragment_mealoftheday" >
+
+        <action
+            android:id="@+id/action_mealoftheday_to_mealDetailView"
+            app:destination="@id/mealDetailView"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailView"
+        android:name="com.example.mealplannerapplication.view.activity2.MealDetailView.MealDetailView"
+        android:label="fragment_meal_detail_view"
+        tools:layout="@layout/fragment_meal_detail_view" >
+
+        <argument
+            android:name="meal_id"
+            app:argType="string" />
+        <argument
+            android:name="DB"
+            app:argType="boolean" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchDetailsView"
+        android:name="com.example.mealplannerapplication.view.activity2.SearchDetails.SearchDetailsView"
+        android:label="SearchDetailsView" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchDetailsView_to_mealDetailView"
+            app:destination="@id/mealDetailView"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_enter_anim"
+            />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
